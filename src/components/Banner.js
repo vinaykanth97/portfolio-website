@@ -28,7 +28,7 @@ const Banner = () => {
     bannerDataFormatted
   return (
     <div>
-      <h1>{personName}</h1>
+      <h1>{personDescription}</h1>
     </div>
   )
 }
