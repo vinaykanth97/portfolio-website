@@ -1,21 +1,25 @@
-import * as React from "react"
+import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 const Banner = () => {
   const bannerData = useStaticQuery(graphql`
-    query MyQuery {
-      allWpPost {
+    query BannerQuery {
+      allWpPage {
         edges {
           node {
             bannerContents {
               personDescription
               personName
               developerImage {
-                uri
+                sourceUrl
                 title
+                altText
               }
               personResume {
-                uri
                 title
+                publicUrl
+                localFile {
+                  publicURL
+                }
               }
             }
           }
@@ -23,12 +27,22 @@ const Banner = () => {
       }
     }
   `)
-  let bannerDataFormatted = bannerData.allWpPost.edges[0].node.bannerContents
-  let { personDescription, personName, developerImage, personResume } =
-    bannerDataFormatted
+
+  let { personName, personDescription, developerImage, personResume } =
+    bannerData.allWpPage.edges[0].node.bannerContents
   return (
-    <div>
-      <h1>{personDescription}</h1>
+    <div className="top-banner">
+      <div className="container">
+        <h1>{personName}</h1>
+        <p>{personDescription}</p>
+        <a
+          href={personResume.localFile.publicURL}
+          title={personResume.title}
+          download
+        >
+          Download CV
+        </a>
+      </div>
     </div>
   )
 }

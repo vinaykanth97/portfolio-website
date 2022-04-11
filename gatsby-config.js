@@ -46,6 +46,10 @@ module.exports = {
         url:
           process.env.WPGRAPHQL_URL ||
           `http://localhost/personal-works/portfolio-website/graphql`,
+        develop: {
+          //caches media files outside of Gatsby's default cache an thus allows them to persist through a cache reset.
+          hardCacheMediaFiles: true,
+        },
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
