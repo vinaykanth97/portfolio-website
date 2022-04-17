@@ -8,6 +8,7 @@ import About from "../components/About"
 import Services from "../components/Services"
 import ShowCase from "../components/Showcase"
 import Portfolio from "../components/Portfolio"
+import Blog from "../components/Blog"
 const IndexPage = () => {
   return (
     <Layout>
@@ -18,6 +19,7 @@ const IndexPage = () => {
       <Services />
       <ShowCase />
       <Portfolio />
+      <Blog />
     </Layout>
   )
 }
