@@ -9,6 +9,10 @@ const About = () => {
             aboutDescription
             aboutTitle
             experienceYears
+            fieldGroupName
+            aboutImage {
+              sourceUrl
+            }
           }
         }
       }
@@ -24,24 +28,38 @@ const About = () => {
       }
     }
   `)
-  console.log(aboutData)
+
+  let { aboutImage, experienceYears, aboutTitle, aboutDescription } =
+    aboutData.allWpPage.nodes[0].about
+  let aboutSkillsets = aboutData.allWpSkillset.edges
   return (
     <div className="about">
       <div className="container">
         <div className="d-flex">
           <div className="about-img">
-            <img src="" alt="" />
-            <div className="years-exp"></div>
+            <img src={aboutImage.sourceUrl} alt="" />
+            <div className="years-exp">
+              <p>{experienceYears}</p>
+            </div>
           </div>
           <div className="about-content">
-            <h2></h2>
-            <p></p>
-            <div className="skillset-level">
-              <h6></h6>
-              <div className="line-overlay">
-                <span className="skill-percent"></span>
-              </div>
-            </div>
+            <h2>{aboutTitle}</h2>
+            <p>{aboutDescription}</p>
+            {aboutSkillsets.map(aboutSkills => {
+              let { technologyName, percentage } = aboutSkills.node.allSkillsets
+              console.log(technologyName)
+              return (
+                <div className="skillset-level">
+                  <h6>{technologyName}</h6>
+                  <div className="line-overlay">
+                    <span
+                      className="skill-percent"
+                      style={{ width: `${percentage}%` }}
+                    ></span>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
