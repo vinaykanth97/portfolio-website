@@ -7,7 +7,9 @@ const Blog = () => {
       allWpPost {
         edges {
           node {
+            excerpt
             title
+            slug
             featuredImage {
               node {
                 sourceUrl
@@ -18,9 +20,15 @@ const Blog = () => {
       }
     }
   `)
+
+  blogData.allWpPost.edges.forEach(edge => {
+    // console.log(edge.node)
+  })
   return (
     <>
-      <Link to="/Header">test</Link>
+      {blogData.allWpPost.edges.map(slugData => {
+        return <Link to={`/blog/${slugData.node.slug}`}>test</Link>
+      })}
     </>
   )
 }

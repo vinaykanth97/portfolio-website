@@ -9,6 +9,7 @@ import Services from "../components/Services"
 import ShowCase from "../components/Showcase"
 import Portfolio from "../components/Portfolio"
 import Blog from "../components/Blog"
+import ContactUs from "../components/ContactUs"
 const IndexPage = () => {
   return (
     <Layout>
@@ -20,6 +21,7 @@ const IndexPage = () => {
       <ShowCase />
       <Portfolio />
       <Blog />
+      <ContactUs />
     </Layout>
   )
 }
