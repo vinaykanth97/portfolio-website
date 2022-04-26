@@ -48,6 +48,8 @@ const GlobalStyle = createGlobalStyle`
   a{
     font-size:1em;
     line-height:1;
+    text-decoration:none;
+    color:#fff;
   }
   .d-flex{
     display:flex;

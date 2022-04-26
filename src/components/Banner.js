@@ -1,7 +1,10 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { Wrapper } from "../styles/baseStyles"
+import { Wrapper, PrimaryBtn, OverlayEffect } from "../styles/baseStyles"
+import carot from "../images/chevron-down.png"
 import styled from "styled-components"
+import { bannerFadeIn, scaleEffect, fadeIn } from "./allAnimations"
+import { motion } from "framer-motion"
 const Banner = () => {
   const bannerData = useStaticQuery(graphql`
     query BannerQuery {
@@ -34,19 +37,34 @@ const Banner = () => {
     bannerData.allWpPage.edges[0].node.bannerContents
 
   return (
-    <TopBanner bannerImage={developerImage.sourceUrl}>
+    <TopBanner>
+      <motion.div
+        className="banner-img"
+        variants={fadeIn}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.img
+          src={developerImage.sourceUrl}
+          alt=""
+          variants={scaleEffect}
+        />
+        <OverlayEffect variants={bannerFadeIn}></OverlayEffect>
+      </motion.div>
       <Wrapper>
         <div className="content">
           <p className="dialogue">Hello, I am</p>
-          <h1>{personName}</h1>
-          <p>{personDescription}</p>
-          <a
+          <div className="main-content">
+            <h1>{personName}</h1>
+            <p>{personDescription}</p>
+          </div>
+          <PrimaryBtn
             href={personResume.localFile.publicURL}
             title={personResume.title}
             download
           >
             Download CV
-          </a>
+          </PrimaryBtn>
         </div>
       </Wrapper>
     </TopBanner>
@@ -54,15 +72,45 @@ const Banner = () => {
 }
 const TopBanner = styled.div`
   height: 100vh;
-  background-image: url(${props => props.bannerImage});
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: 70%;
   position: relative;
+  overflow: hidden;
+  .banner-img {
+    position: absolute;
+    right: 0;
+    max-width: 70%;
+    img {
+      height: 100vh;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
   .content {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    .dialogue {
+      padding: 0.5em 1em;
+      background-color: #ff4900;
+      display: inline-block;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -0.65em;
+        width: 1em;
+        height: 1em;
+        left: 50%;
+        transform: translateX(-50%);
+        background: url(${carot}) no-repeat;
+        background-size: cover;
+      }
+    }
+    .main-content {
+      margin: 1em 0 2.5em;
+      h1 {
+        margin-bottom: 0.15em;
+      }
+    }
   }
 `
 
