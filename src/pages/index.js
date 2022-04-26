@@ -10,19 +10,23 @@ import ShowCase from "../components/Showcase"
 import Portfolio from "../components/Portfolio"
 import Blog from "../components/Blog"
 import ContactUs from "../components/ContactUs"
+import GlobalStyle  from "../styles/globalStyles"
 const IndexPage = () => {
   return (
-    <Layout>
-      <Seo title="Home" />
-      <Header />
-      <Banner />
-      <About />
-      <Services />
-      <ShowCase />
-      <Portfolio />
-      <Blog />
-      <ContactUs />
-    </Layout>
+    <>
+      <GlobalStyle />
+      <Layout>
+        <Seo title="Home" />
+        <Header />
+        <Banner />
+        <About />
+        <Services />
+        <ShowCase />
+        <Portfolio />
+        <Blog />
+        <ContactUs />
+      </Layout>
+    </>
   )
 }
 
