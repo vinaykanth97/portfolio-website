@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
   }
   p{
     font-size:1.125em;
-    line-height:1.2;
+    line-height: 1.5;
   }
   a{
     font-size:1em;

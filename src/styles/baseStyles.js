@@ -27,3 +27,11 @@ export const OverlayEffect = styled(motion.div)`
   width: 100%;
   height: 100%;
 `
+export const Topcontents = styled.div`
+  text-align: center;
+  max-width: 85%;
+  margin: auto;
+  h2 {
+    margin: 0 0 0.6em;
+  }
+`

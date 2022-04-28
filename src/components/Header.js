@@ -30,9 +30,9 @@ const Header = () => {
           </Logo>
           <nav className="menu-items">
             <ul className="d-flex align-center">
-              {menuListItems.map(menuList => {
+              {menuListItems.map((menuList, index) => {
                 return (
-                  <li>
+                  <li key={index}>
                     <Link>{menuList}</Link>
                   </li>
                 )
@@ -48,7 +48,7 @@ const Headerst = styled.header`
   position: sticky;
   top: 0;
   z-index: 2;
-  background:#000;
+  background: #000;
   .space-between {
     justify-content: space-between;
   }
