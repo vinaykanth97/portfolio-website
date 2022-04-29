@@ -9,7 +9,7 @@ const ShowCase = () => {
 
   //   }
   // `)
-  console.log(showCaseDatas)
+  // console.log(showCaseDatas)
   return (
     <div>
       <h1>ShowCase</h1>
