@@ -8,9 +8,10 @@ import About from "../components/About"
 import Services from "../components/Services"
 import ShowCase from "../components/Showcase"
 import Portfolio from "../components/Portfolio"
+import Testimonials from "../components/Testimonials"
 import Blog from "../components/Blog"
 import ContactUs from "../components/ContactUs"
-import GlobalStyle  from "../styles/globalStyles"
+import GlobalStyle from "../styles/globalStyles"
 const IndexPage = () => {
   return (
     <>
@@ -23,6 +24,7 @@ const IndexPage = () => {
         <Services />
         <ShowCase />
         <Portfolio />
+        <Testimonials />
         <Blog />
         <ContactUs />
       </Layout>
