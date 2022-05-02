@@ -1,14 +1,29 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { DiscussionEmbed } from "disqus-react"
+import GlobalStyle from "../styles/globalStyles"
 export default function BlogPost({ data }) {
-  console.log(data)
+  let title = data.allWpPost.edges[0].node.slug
+  const disqusConfig = {
+    shortname: "portfolio",
+    config: {
+      identifier: data.allWpPost.edges[0].node.slug,
+      title: title,
+      language: "en",
+    },
+  }
+  console.log(disqusConfig)
   return (
     <>
+      <GlobalStyle />
       {data.allWpPost.edges.map(blogs => {
+        console.log()
         return (
           <>
             <h2>{blogs.node.title}</h2>
-            <p dangerouslySetInnerHTML={{ __html: blogs.node.excerpt }}></p>
+            <div dangerouslySetInnerHTML={{ __html: blogs.node.excerpt }}></div>
+
+            <DiscussionEmbed {...disqusConfig} />
           </>
         )
       })}

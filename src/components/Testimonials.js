@@ -4,6 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination } from "swiper"
 import styled from "styled-components"
 import { Wrapper, Topcontents } from "../styles/baseStyles"
+import quoteStart from "../images/quote-start.png"
+import quoteEnd from "../images/quote-end.png"
 import "swiper/css"
 import "swiper/css/pagination"
 const Testimonials = () => {
@@ -101,8 +103,9 @@ const TestimonialsSec = styled.div`
     margin-top: 8em;
     background-color: #111111;
     border-radius: 0.3em;
-    padding: 6em 2em 2em;
+    padding: 6em 6em 3em;
     position: relative;
+
     figure {
       position: absolute;
       top: -4.3em;
@@ -112,6 +115,34 @@ const TestimonialsSec = styled.div`
         width: 8em;
         height: 8em;
         border-radius: 50%;
+      }
+    }
+    h6 {
+      color: #ff4900;
+    }
+    p {
+      font-size: 0.9em;
+      &.review {
+        margin-top: 1em;
+        position: relative;
+        &::before {
+          content: "";
+          position: absolute;
+          width: 1em;
+          height: 1em;
+          top: -1em;
+          background: url(${quoteStart}) no-repeat;
+          left: -1em;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          width: 1em;
+          height: 1em;
+          bottom: -1em;
+          background: url(${quoteEnd}) no-repeat;
+          right: -1em;
+        }
       }
     }
   }

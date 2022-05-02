@@ -34,6 +34,7 @@ exports.createPages = async gatsbyUtilities => {
       component: blogPostTemplate,
       context: {
         databaseId: postSlugs.node.databaseId,
+        slug: postSlugs.node.slug,
       },
     })
   })

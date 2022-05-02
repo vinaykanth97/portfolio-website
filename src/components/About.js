@@ -137,7 +137,7 @@ const ProgessBarMax = styled.div`
   display: block;
   height: 0.25em;
   position: relative;
-  margin: 0 0 2em;
+  margin: 0 0 1.5em;
 `
 const ProgressBarvalue = styled.span`
   position: absolute;
