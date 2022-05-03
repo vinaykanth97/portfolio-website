@@ -32,6 +32,6 @@ export const Topcontents = styled.div`
   max-width: 85%;
   margin: auto;
   h2 {
-    margin: 0 0 0.6em;
+    margin: 0 0 0.5em;
   }
 `

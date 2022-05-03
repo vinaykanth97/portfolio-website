@@ -6,11 +6,11 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
 }
   body {
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
     background: #000;
     color:#fff ;
     font-family: 'Poppins', sans-serif;
     font-size:100%;
+    font-weight:300;
   }
   img{
       max-width: 100%;

@@ -13,8 +13,8 @@ export const bannerFadeIn = {
   visible: {
     x: 1000,
     transition: {
-      ease: "easeOut",
-      duration: 1,
+      ease: "easeInOut",
+      duration: 3,
     },
   },
 }

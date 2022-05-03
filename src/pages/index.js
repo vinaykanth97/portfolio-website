@@ -12,6 +12,7 @@ import Testimonials from "../components/Testimonials"
 import Blog from "../components/Blog"
 import ContactUs from "../components/ContactUs"
 import GlobalStyle from "../styles/globalStyles"
+import "../styles/style.css"
 const IndexPage = () => {
   return (
     <>
