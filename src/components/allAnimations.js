@@ -14,7 +14,7 @@ export const bannerFadeIn = {
     x: 1000,
     transition: {
       ease: "easeInOut",
-      duration: 3,
+      duration: 1,
     },
   },
 }
