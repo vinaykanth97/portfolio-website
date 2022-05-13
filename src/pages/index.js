@@ -11,7 +11,9 @@ import Portfolio from "../components/Portfolio"
 import Testimonials from "../components/Testimonials"
 import Blog from "../components/Blog"
 import ContactUs from "../components/ContactUs"
+import CopyRight from "../components/CopyRight"
 import GlobalStyle from "../styles/globalStyles"
+
 import "../styles/style.css"
 const IndexPage = () => {
   return (
@@ -28,6 +30,7 @@ const IndexPage = () => {
         <Testimonials />
         <Blog />
         <ContactUs />
+        <CopyRight />
       </Layout>
     </>
   )

@@ -8,10 +8,9 @@ export const Wrapper = styled.div`
 export const PrimaryBtn = styled.a`
   font-size: 1.1em;
   line-height: 1;
-  padding: 1.1em 1.2em;
+  padding: 0.9em 1.2em;
   display: inline-block;
   background-color: transparent;
-  border-radius: 0.625em;
   border: 1px solid #ffffff;
   transition: 0.3s all ease;
   &:hover {

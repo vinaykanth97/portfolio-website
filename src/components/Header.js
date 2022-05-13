@@ -49,20 +49,46 @@ const Headerst = styled.header`
   top: 0;
   z-index: 100;
   background: #000;
+  padding: 1.3em 0;
+  figure {
+    img {
+      width: 6em;
+    }
+  }
   .space-between {
     justify-content: space-between;
   }
   li {
-    margin: 0 0.3em;
+    margin: 0 0.9em;
+    padding: 1.1em 0 0;
     &:last-of-type {
-      margin: 0;
+      margin-right: 0;
     }
     a {
-      padding: 3.663em 1em 1.813em;
       display: inline-block;
-      transition: 0.3s all ease;
-      &:hover {
-        background: #ff4900;
+      position: relative;
+      padding-bottom: 0.4em;
+      overflow: hidden;
+      cursor: pointer;
+      &::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        border-bottom: 0.2em solid #ff4900;
+        bottom: 0;
+        right: 0;
+        transition: 0.6s all ease-out;
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        &::after {
+          animation: menuLine 1s forwards;
+          width: 100%;
+          right: auto;
+          left: 0;
+        }
       }
     }
   }

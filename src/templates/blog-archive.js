@@ -47,15 +47,14 @@ export default function BlogPost({ data }) {
         </Wrapper>
       </div>
       <Wrapper>
-        {data.allWpPost.edges.map(blogs => {
-          console.log(blogs)
+        {data.allWpPost.edges.map((blogs, index) => {
           let formattedDate = blogs.node.date.split("/")
           postedDate = formattedDate[0]
           postedMonth = formattedDate[1]
           postedYear = formattedDate[2]
 
           return (
-            <>
+            <div key={index}>
               <div className="top-contents">
                 <h1>{blogs.node.title}</h1>
                 <div
@@ -97,7 +96,7 @@ export default function BlogPost({ data }) {
                 <h2>Related Posts</h2>
                 <BlogSlider />
               </div>
-            </>
+            </div>
           )
         })}
       </Wrapper>

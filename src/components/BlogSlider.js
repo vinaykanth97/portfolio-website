@@ -63,7 +63,7 @@ const BlogSlider = () => {
           postedYear = formattedDate[2]
 
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <div className="blog-item" key={index}>
                 <figure>
                   <img
