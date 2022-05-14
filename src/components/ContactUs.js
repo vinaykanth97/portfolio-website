@@ -7,7 +7,7 @@ import mailIcon from "../images/email.svg"
 import locationIcon from "../images/location.svg"
 function ContactUs() {
   return (
-    <ContactUsSec>
+    <ContactUsSec className="common-sec">
       <Wrapper>
         <div className="d-flex">
           <div className="personal-information">

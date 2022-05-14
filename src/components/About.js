@@ -35,10 +35,10 @@ const About = () => {
     aboutData.allWpPage.nodes[0].about
   let aboutSkillsets = aboutData.allWpSkillset.edges
 
-  const skillSetColors = ["#ff4900", "#ff7004", "#ff9809", "#ffbf0d"]
+  const skillSetColors = ["#ff4900", "#ff7004", "#ff9809", "#ffbf0d"] 
 
   return (
-    <AboutSection>
+    <AboutSection className="common-sec">
       <Wrapper>
         <div className="d-flex">
           <div className="about-img">

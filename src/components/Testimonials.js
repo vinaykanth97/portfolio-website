@@ -42,7 +42,7 @@ const Testimonials = () => {
   let { testimonialsDescription, testimonialsTitle } =
     testimonialsData.allWpPage.edges[0].node.testimonialUtils
   return (
-    <TestimonialsSec>
+    <TestimonialsSec className="common-sec">
       <Wrapper>
         <Topcontents>
           <h2>{testimonialsTitle}</h2>
@@ -63,7 +63,6 @@ const Testimonials = () => {
         {testimonialsData.allWpTestimonial.edges.map((testimonials, index) => {
           let { review, reviewerName, reviewerWorkplace } =
             testimonials.node.testimonials
-          console.log(testimonials.node)
           return (
             <SwiperSlide key={index}>
               <div className="review-content">

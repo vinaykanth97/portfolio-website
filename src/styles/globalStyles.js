@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
 }
   body {
-    background: #000;
+    background: linear-gradient(226deg, rgb(0, 0, 0), rgb(8 6 6));
     color:#fff ;
     font-family: 'Poppins', sans-serif;
     font-size:100%;

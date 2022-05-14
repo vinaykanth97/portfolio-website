@@ -37,11 +37,10 @@ const Portfolio = () => {
       }
     }
   `)
-  console.log(portfolioDatas)
   const { portfoliodescription, portfoliotitle } =
     portfolioDatas.allWpPage.edges[0].node.portfolioutils
   return (
-    <PortfolioSec>
+    <PortfolioSec className="common-sec">
       <Wrapper>
         <Topcontents>
           <h2>{portfoliotitle}</h2>

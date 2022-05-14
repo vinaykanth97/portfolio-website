@@ -31,3 +31,12 @@ export const scaleEffect = {
     },
   },
 }
+
+export const headerShow = {
+  hidden: {
+    y: "-100%",
+  },
+  visible: {
+    y: "0",
+  },
+}

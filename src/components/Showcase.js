@@ -22,7 +22,6 @@ const ShowCase = () => {
   `)
   const { awards, clients, projects, yearsExperience } =
     showCaseDatas.allWpPage.edges[0].node.showcaseItem
-  console.log(awards)
   return (
     <ShowCaseSec>
       <Wrapper>

@@ -13,24 +13,26 @@ import Blog from "../components/Blog"
 import ContactUs from "../components/ContactUs"
 import CopyRight from "../components/CopyRight"
 import GlobalStyle from "../styles/globalStyles"
-
+import { ElementInfoProvider } from "../components/ElementContext"
 import "../styles/style.css"
 const IndexPage = () => {
   return (
     <>
       <GlobalStyle />
       <Layout>
-        <Seo title="Home" />
-        <Header />
-        <Banner />
-        <About />
-        <Services />
-        <ShowCase />
-        <Portfolio />
-        <Testimonials />
-        <Blog />
-        <ContactUs />
-        <CopyRight />
+        <ElementInfoProvider>
+          <Seo title="Home" />
+          <Header />
+          <Banner />
+          <About />
+          <Services />
+          <ShowCase />
+          <Portfolio />
+          <Testimonials />
+          <Blog />
+          <ContactUs />
+          <CopyRight />
+        </ElementInfoProvider>
       </Layout>
     </>
   )

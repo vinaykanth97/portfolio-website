@@ -18,9 +18,8 @@ const Blog = () => {
       }
     }
   `)
-  console.log(blogData)
   return (
-    <BlogSec>
+    <BlogSec className="common-sec">
       <Wrapper>
         <Topcontents>
           <h2>{blogData.allWpPage.edges[0].node.blogtopcontents.title}</h2>

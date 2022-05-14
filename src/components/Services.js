@@ -2,6 +2,7 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import { Wrapper, Topcontents } from "../styles/baseStyles"
+
 const Services = () => {
   const servicesData = useStaticQuery(graphql`
     query serviceQuery {
@@ -32,7 +33,7 @@ const Services = () => {
 
   const servicesList = servicesData.allWpServices.edges
   return (
-    <ServicesSec>
+    <ServicesSec className="common-sec">
       <Wrapper>
         <Topcontents>
           <h2>{servicesTitle}</h2>
