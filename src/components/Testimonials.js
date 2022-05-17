@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination } from "swiper"
@@ -8,6 +8,7 @@ import quoteStart from "../images/quote-start.png"
 import quoteEnd from "../images/quote-end.png"
 import "swiper/css"
 import "swiper/css/pagination"
+import elementContext from "./ElementContext"
 const Testimonials = () => {
   const testimonialsData = useStaticQuery(graphql`
     query testimonialQuery {
@@ -41,8 +42,13 @@ const Testimonials = () => {
   `)
   let { testimonialsDescription, testimonialsTitle } =
     testimonialsData.allWpPage.edges[0].node.testimonialUtils
+  let { testimonials } = useContext(elementContext)
   return (
-    <TestimonialsSec className="common-sec">
+    <TestimonialsSec
+      className="common-sec"
+      id="testimonials"
+      ref={testimonials.reference}
+    >
       <Wrapper>
         <Topcontents>
           <h2>{testimonialsTitle}</h2>

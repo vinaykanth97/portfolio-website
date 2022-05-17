@@ -1,13 +1,20 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { Wrapper, PrimaryBtn } from "../styles/baseStyles"
 import githubLogo from "../images/github.png"
 import callIcon from "../images/phone.svg"
 import mailIcon from "../images/email.svg"
 import locationIcon from "../images/location.svg"
+import elementContext from "./ElementContext"
+
 function ContactUs() {
+  let { contactUs } = useContext(elementContext)
   return (
-    <ContactUsSec className="common-sec">
+    <ContactUsSec
+      className="common-sec"
+      id="contact-form"
+      ref={contactUs.reference}
+    >
       <Wrapper>
         <div className="d-flex">
           <div className="personal-information">
@@ -47,7 +54,7 @@ function ContactUs() {
             </div>
             <div className="social-link">
               <p>Find Me on</p>
-              <a href="javascript:void(0)">
+              <a>
                 <img src={githubLogo} alt="" />
               </a>
             </div>
@@ -90,7 +97,7 @@ function ContactUs() {
   )
 }
 const ContactUsSec = styled.div`
-  background: #060606;
+  /* background: #060606; */
   padding: 5em 0;
   .personal-information {
     flex-basis: 40%;

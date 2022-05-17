@@ -13,14 +13,14 @@ import Blog from "../components/Blog"
 import ContactUs from "../components/ContactUs"
 import CopyRight from "../components/CopyRight"
 import GlobalStyle from "../styles/globalStyles"
-import { ElementInfoProvider } from "../components/ElementContext"
+import { ElementProvider } from "../components/ElementContext"
 import "../styles/style.css"
 const IndexPage = () => {
   return (
     <>
       <GlobalStyle />
       <Layout>
-        <ElementInfoProvider>
+        <ElementProvider>
           <Seo title="Home" />
           <Header />
           <Banner />
@@ -32,7 +32,7 @@ const IndexPage = () => {
           <Blog />
           <ContactUs />
           <CopyRight />
-        </ElementInfoProvider>
+        </ElementProvider>
       </Layout>
     </>
   )

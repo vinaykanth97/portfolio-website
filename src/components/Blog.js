@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import { Wrapper, Topcontents } from "../styles/baseStyles"
 import BlogSlider from "./BlogSlider"
+import elementContext from "./ElementContext"
+
 const Blog = () => {
   const blogData = useStaticQuery(graphql`
     query blogQuery {
@@ -18,8 +20,9 @@ const Blog = () => {
       }
     }
   `)
+  let { blog } = useContext(elementContext)
   return (
-    <BlogSec className="common-sec">
+    <BlogSec className="common-sec" id="blog" ref={blog.reference}>
       <Wrapper>
         <Topcontents>
           <h2>{blogData.allWpPage.edges[0].node.blogtopcontents.title}</h2>

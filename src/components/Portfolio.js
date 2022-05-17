@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import { Wrapper, Topcontents } from "../styles/baseStyles"
 import rightArrow from "../images/right-arrows.png"
+import elementContext from "./ElementContext"
 const Portfolio = () => {
   const portfolioDatas = useStaticQuery(graphql`
     query portfolioQuery {
@@ -37,10 +38,11 @@ const Portfolio = () => {
       }
     }
   `)
+  const { portfolio } = useContext(elementContext)
   const { portfoliodescription, portfoliotitle } =
     portfolioDatas.allWpPage.edges[0].node.portfolioutils
   return (
-    <PortfolioSec className="common-sec">
+    <PortfolioSec className="common-sec" id="portfolio" ref={portfolio.reference}>
       <Wrapper>
         <Topcontents>
           <h2>{portfoliotitle}</h2>

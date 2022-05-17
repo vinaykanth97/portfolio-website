@@ -1,17 +1,39 @@
-import React from "react"
-import { createContext, useState, useRef } from "react"
+import React, { createContext, useRef } from "react"
 
-const ElementContext = createContext()
+const elementContext = createContext()
 
-export function ElementInfoProvider({ children }) {
-  
-  const elemRef = useRef()
-  let test = children.map((element, idx) => {
-    return React.cloneElement(element, { ref: idx })
-  })
+export function ElementProvider({ children }) {
+  let allRefs = {
+    about: {
+      reference: useRef(null),
+      active: false,
+    },
+    services: {
+      reference: useRef(null),
+      active: false,
+    },
+    portfolio: {
+      reference: useRef(null),
+      active: false,
+    },
+    testimonials: {
+      reference: useRef(null),
+      active: false,
+    },
+    blog: {
+      reference: useRef(null),
+      active: false,
+    },
+    contactUs: {
+      reference: useRef(null),
+      active: false,
+    },
+  }
   return (
-    <ElementContext.Provider value={elemRef}>{children}</ElementContext.Provider>
+    <elementContext.Provider value={allRefs}>
+      {children}
+    </elementContext.Provider>
   )
 }
 
-export default ElementContext
+export default elementContext

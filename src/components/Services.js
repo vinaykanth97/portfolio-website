@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import { Wrapper, Topcontents } from "../styles/baseStyles"
+import elementContext from "./ElementContext"
 
 const Services = () => {
   const servicesData = useStaticQuery(graphql`
@@ -32,8 +33,9 @@ const Services = () => {
   let { servicesTitle, serviceDescription } = serviceUtils
 
   const servicesList = servicesData.allWpServices.edges
+  let { services } = useContext(elementContext)
   return (
-    <ServicesSec className="common-sec">
+    <ServicesSec className="common-sec" id="service" ref={services.reference}>
       <Wrapper>
         <Topcontents>
           <h2>{servicesTitle}</h2>

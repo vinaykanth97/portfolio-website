@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { Wrapper } from "../styles/baseStyles"
 import styled from "styled-components"
+import elementContext from "./ElementContext"
 const About = () => {
   const aboutData = useStaticQuery(graphql`
     query AboutQuery {
@@ -35,10 +36,10 @@ const About = () => {
     aboutData.allWpPage.nodes[0].about
   let aboutSkillsets = aboutData.allWpSkillset.edges
 
-  const skillSetColors = ["#ff4900", "#ff7004", "#ff9809", "#ffbf0d"] 
-
+  const skillSetColors = ["#ff4900", "#ff7004", "#ff9809", "#ffbf0d"]
+  const { about } = useContext(elementContext)
   return (
-    <AboutSection className="common-sec">
+    <AboutSection className="common-sec" id="about" ref={about.reference}>
       <Wrapper>
         <div className="d-flex">
           <div className="about-img">
