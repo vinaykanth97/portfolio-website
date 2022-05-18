@@ -9,10 +9,11 @@ import elementContext from "./ElementContext"
 
 function ContactUs() {
   let { contactUs } = useContext(elementContext)
+  console.log("effect Contact us")
   return (
     <ContactUsSec
       className="common-sec"
-      id="contact-form"
+      id="contactUs"
       ref={contactUs.reference}
     >
       <Wrapper>

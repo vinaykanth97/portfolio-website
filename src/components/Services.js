@@ -34,8 +34,9 @@ const Services = () => {
 
   const servicesList = servicesData.allWpServices.edges
   let { services } = useContext(elementContext)
+  console.log("effect services")
   return (
-    <ServicesSec className="common-sec" id="service" ref={services.reference}>
+    <ServicesSec className="common-sec" id="services" ref={services.reference}>
       <Wrapper>
         <Topcontents>
           <h2>{servicesTitle}</h2>

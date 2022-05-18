@@ -41,8 +41,13 @@ const Portfolio = () => {
   const { portfolio } = useContext(elementContext)
   const { portfoliodescription, portfoliotitle } =
     portfolioDatas.allWpPage.edges[0].node.portfolioutils
+  console.log("effect Portfolio")
   return (
-    <PortfolioSec className="common-sec" id="portfolio" ref={portfolio.reference}>
+    <PortfolioSec
+      className="common-sec"
+      id="portfolio"
+      ref={portfolio.reference}
+    >
       <Wrapper>
         <Topcontents>
           <h2>{portfoliotitle}</h2>

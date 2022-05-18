@@ -20,6 +20,7 @@ const Blog = () => {
       }
     }
   `)
+  console.log("effect Blog")
   let { blog } = useContext(elementContext)
   return (
     <BlogSec className="common-sec" id="blog" ref={blog.reference}>

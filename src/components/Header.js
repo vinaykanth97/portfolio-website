@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useCallback,
-  useRef,
-  useMemo,
-} from "react"
+import React, { useContext, useEffect, useRef, useMemo } from "react"
 import { useState } from "react"
 import styled from "styled-components"
 import { Wrapper } from "../styles/baseStyles"
@@ -12,17 +6,6 @@ import { motion } from "framer-motion"
 import elementContext from "./ElementContext"
 import LogoAnimation from "./LogoAnimation"
 const Header = () => {
-  // const headerData = useStaticQuery(graphql`
-  //   query headerQuery {
-  //     wp {
-  //       siteLogo {
-  //         sourceUrl
-  //       }
-  //     }
-  //   }
-  // `)
-  console.log("Rerendering")
-
   const menuListItems = useMemo(
     () => [
       { title: "About Me", id: 0, active: false, abb: "about" },
@@ -38,54 +21,6 @@ const Header = () => {
   let elementsList = useContext(elementContext)
   const headerRef = useRef(null)
   const [activeList, setActiveList] = useState([...menuListItems])
-  // const HandleScrollClick = useCallback(
-  //   index => {
-  //     menuListItems.filter((menuList, i) => {
-  //       if (index === menuList.id) {
-  //         let currentElementTop =
-  //           elementsList[menuList.abb].reference.current.offsetTop -
-  //           headerRef.current.offsetHeight
-  //         window.scrollTo({
-  //           top: currentElementTop,
-  //           left: 0,
-  //           behavior: "smooth",
-  //         })
-  //         menuList.active = true
-  //         setActiveList(menuListItems)
-  //       }
-  //       return false
-  //     })
-  //   },
-  //   [menuListItems]
-  // )
-
-  // const HandleScrollSpy = useCallback(
-  //   e => {
-  //     let currentTop = window.pageYOffset
-  //     menuListItems.filter((menuList, i) => {
-  //       let contTop =
-  //         elementsList[menuList.abb].reference.current.offsetTop -
-  //         headerRef.current.offsetHeight -
-  //         10
-  //       let contBottom =
-  //         contTop + elementsList[menuList.abb].reference.current.offsetHeight
-
-  //       if (currentTop >= contTop && currentTop <= contBottom) {
-  //         menuListItems[i].active = true
-  //         setActiveList(menuListItems)
-  //       }
-  //       return false
-  //     })
-  //     if (
-  //       window.scrollY <
-  //       elementsList[menuListItems[0].abb].reference.current.offsetTop
-  //     ) {
-  //       menuListItems[0].active = false
-  //       setActiveList(menuListItems)
-  //     }
-  //   },
-  //   [menuListItems]
-  // )
 
   const HandleScrollClick = index => {
     let menuArray = menuListItems.filter((menuList, i) => {
@@ -106,40 +41,54 @@ const Header = () => {
     })
     setActiveList(menuArray)
   }
-  const [sl, setsl] = useState(false)
-  const HandleScrollSpy = useCallback(() => {
-    let currentTop = window.pageYOffset
-    let menuListArray = menuListItems.filter((menuList, i) => {
-      let contTop =
-        elementsList[menuList.abb].reference.current.offsetTop -
-        headerRef.current.offsetHeight -
-        10
-      let contBottom =
-        contTop + elementsList[menuList.abb].reference.current.offsetHeight
-      if (currentTop >= contTop && currentTop <= contBottom) {
-        menuListItems[i].active = true
-        return menuListItems
-      } else {
-        menuListItems[i].active = false
-        return menuListItems
-      }
-    })
 
-    if (
-      window.scrollY <=
-      elementsList[menuListItems[0].abb].reference.current.offsetTop
-    ) {
-      menuListArray[0].active = false
+  const options = useMemo(() => {
+    return {
+      root: null,
+      threshold: 0.45,
+      rootMargin: "-200px 0px 0px 0px",
     }
-    setActiveList(menuListArray)
-  }, [menuListItems, elementsList])
+  }, [])
 
   useEffect(() => {
-    window.addEventListener("scroll", HandleScrollSpy)
+    const scrollObserver = new IntersectionObserver(entries => {
+      menuListItems.forEach(menuList => {
+        menuList.active = false
+      })
+      if (entries[0].isIntersecting) {
+        let currentId = entries[0].target.id
+        let filteredList = menuListItems.filter(menuList => {
+          if (menuList.abb === currentId) {
+            menuList.active = true
+          }
+          return menuList
+        })
+        setActiveList(filteredList)
+      }
+    }, options)
+
+    menuListItems.filter(menus => {
+      scrollObserver.observe(elementsList[menus.abb].reference.current)
+      return false
+    })
     return () => {
-      window.removeEventListener("scroll", HandleScrollSpy)
+      menuListItems.filter(menus => {
+        scrollObserver.unobserve(elementsList[menus.abb].reference.current)
+        return false
+      })
     }
-  }, [HandleScrollSpy])
+  }, [menuListItems, elementsList, options])
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset < 200) {
+        menuListItems[0].active = false
+        setActiveList(menuListItems)
+      }
+    })
+  })
+
+  console.log("effect Header")
 
   return (
     <Headerst ref={headerRef}>

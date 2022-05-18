@@ -43,6 +43,7 @@ const Testimonials = () => {
   let { testimonialsDescription, testimonialsTitle } =
     testimonialsData.allWpPage.edges[0].node.testimonialUtils
   let { testimonials } = useContext(elementContext)
+  console.log("effect Testimonials")
   return (
     <TestimonialsSec
       className="common-sec"

@@ -35,7 +35,7 @@ const About = () => {
   let { aboutImage, experienceYears, aboutTitle, aboutDescription } =
     aboutData.allWpPage.nodes[0].about
   let aboutSkillsets = aboutData.allWpSkillset.edges
-
+  console.log("effect About")
   const skillSetColors = ["#ff4900", "#ff7004", "#ff9809", "#ffbf0d"]
   const { about } = useContext(elementContext)
   return (
