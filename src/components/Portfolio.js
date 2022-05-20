@@ -47,6 +47,7 @@ const Portfolio = () => {
       className="common-sec"
       id="portfolio"
       ref={portfolio.reference}
+      data-placement="2"
     >
       <Wrapper>
         <Topcontents>

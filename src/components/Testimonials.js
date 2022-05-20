@@ -49,6 +49,7 @@ const Testimonials = () => {
       className="common-sec"
       id="testimonials"
       ref={testimonials.reference}
+      data-placement="3"
     >
       <Wrapper>
         <Topcontents>

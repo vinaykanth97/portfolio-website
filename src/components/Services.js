@@ -36,7 +36,7 @@ const Services = () => {
   let { services } = useContext(elementContext)
   console.log("effect services")
   return (
-    <ServicesSec className="common-sec" id="services" ref={services.reference}>
+    <ServicesSec className="common-sec" id="services" ref={services.reference} data-placement="1">
       <Wrapper>
         <Topcontents>
           <h2>{servicesTitle}</h2>

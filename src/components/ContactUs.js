@@ -15,6 +15,7 @@ function ContactUs() {
       className="common-sec"
       id="contactUs"
       ref={contactUs.reference}
+      data-placement="5"
     >
       <Wrapper>
         <div className="d-flex">

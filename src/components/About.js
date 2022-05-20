@@ -39,7 +39,12 @@ const About = () => {
   const skillSetColors = ["#ff4900", "#ff7004", "#ff9809", "#ffbf0d"]
   const { about } = useContext(elementContext)
   return (
-    <AboutSection className="common-sec" id="about" ref={about.reference}>
+    <AboutSection
+      className="common-sec"
+      id="about"
+      ref={about.reference}
+      data-placement="0"
+    >
       <Wrapper>
         <div className="d-flex">
           <div className="about-img">

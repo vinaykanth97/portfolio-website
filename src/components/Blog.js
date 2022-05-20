@@ -23,7 +23,7 @@ const Blog = () => {
   console.log("effect Blog")
   let { blog } = useContext(elementContext)
   return (
-    <BlogSec className="common-sec" id="blog" ref={blog.reference}>
+    <BlogSec className="common-sec" id="blog" ref={blog.reference} data-placement="4">
       <Wrapper>
         <Topcontents>
           <h2>{blogData.allWpPage.edges[0].node.blogtopcontents.title}</h2>

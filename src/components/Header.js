@@ -45,48 +45,37 @@ const Header = () => {
   const options = useMemo(() => {
     return {
       root: null,
-      threshold: 0.45,
-      rootMargin: "-200px 0px 0px 0px",
+      rootMargin: "0px 0px -50% 0px",
+      threshold: 0.25,
     }
   }, [])
 
   useEffect(() => {
     const scrollObserver = new IntersectionObserver(entries => {
-      menuListItems.forEach(menuList => {
+      let updatedPoints = menuListItems.filter(menuList => {
         menuList.active = false
+        return menuList
       })
-      if (entries[0].isIntersecting) {
-        let currentId = entries[0].target.id
-        let filteredList = menuListItems.filter(menuList => {
-          if (menuList.abb === currentId) {
-            menuList.active = true
-          }
-          return menuList
-        })
-        setActiveList(filteredList)
-      }
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          let currentComponentPlacement = parseInt(
+            entry.target.getAttribute("data-placement")
+          )
+          menuListItems[currentComponentPlacement].active = true
+        }
+      })
+      setActiveList(updatedPoints)
     }, options)
-
-    menuListItems.filter(menus => {
-      scrollObserver.observe(elementsList[menus.abb].reference.current)
-      return false
-    })
-    return () => {
-      menuListItems.filter(menus => {
-        scrollObserver.unobserve(elementsList[menus.abb].reference.current)
-        return false
+    function ObserverActivity(activity) {
+      menuListItems.forEach(menus => {
+        scrollObserver[activity](elementsList[menus.abb].reference.current)
       })
     }
+    ObserverActivity("observe")
+    return () => {
+      ObserverActivity("unobserve")
+    }
   }, [menuListItems, elementsList, options])
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.pageYOffset < 200) {
-        menuListItems[0].active = false
-        setActiveList(menuListItems)
-      }
-    })
-  })
 
   console.log("effect Header")
 
