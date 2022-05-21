@@ -5,7 +5,11 @@ import { Wrapper } from "../styles/baseStyles"
 import { motion } from "framer-motion"
 import elementContext from "./ElementContext"
 import LogoAnimation from "./LogoAnimation"
+import gsap from "gsap"
+import { ScrollToPlugin } from "gsap/all"
+
 const Header = () => {
+  gsap.registerPlugin(ScrollToPlugin)
   const menuListItems = useMemo(
     () => [
       { title: "About Me", id: 0, active: false, abb: "about" },
@@ -27,11 +31,12 @@ const Header = () => {
       if (index === menuList.id) {
         let currentElementTop =
           elementsList[menuList.abb].reference.current.offsetTop -
-          headerRef.current.offsetHeight
-        window.scrollTo({
-          top: currentElementTop,
-          left: 0,
-          behavior: "smooth",
+          headerRef.current.offsetHeight +
+          50
+        gsap.to(window, {
+          duration: 1.2,
+          scrollTo: currentElementTop,
+          ease: "circ.inOut",
         })
         menuList.active = true
       } else {
@@ -72,18 +77,42 @@ const Header = () => {
       })
     }
     ObserverActivity("observe")
-    return () => {
-      ObserverActivity("unobserve")
-    }
   }, [menuListItems, elementsList, options])
 
-  console.log("effect Header")
+  useEffect(() => {
+    gsap.set(headerRef.current, { yPercent: -100 })
+    function HeaderPos() {
+      if (window.pageYOffset > 100) {
+        gsap.to(headerRef.current, {
+          yPercent: 0,
+          ease: "power2.In",
+        })
+      } else {
+        gsap.to(headerRef.current, {
+          yPercent: -100,
+          ease: "power2.In",
+        })
+      }
+    }
+    HeaderPos()
+    window.addEventListener("scroll", () => {
+      HeaderPos()
+    })
+  }, [])
 
+  console.log("effect Header")
+  const ScrollToTopHandler = () => {
+    gsap.to(window, {
+      duration: 1.2,
+      scrollTo: 0,
+      ease: "circ.inOut",
+    })
+  }
   return (
     <Headerst ref={headerRef}>
       <Wrapper>
         <div className="d-flex space-between align-center header-align">
-          <Logo>
+          <Logo onClick={ScrollToTopHandler}>
             <LogoAnimation />
           </Logo>
           <nav className="menu-items">
@@ -113,13 +142,14 @@ const Headerst = styled(motion.header)`
   width: 100%;
   background: #181818;
   padding: 1.3em 0;
+  /* opacity: 0; */
   figure {
     img {
       width: 6em;
     }
   }
   .menu-items {
-    flex-basis: 92%;
+    flex-basis: 95%;
     ul {
       justify-content: flex-end;
     }
@@ -172,7 +202,8 @@ const Headerst = styled(motion.header)`
 `
 const Logo = styled.figure`
   margin: 0.6em 0 0;
-  flex-basis: 8%;
+  flex-basis: 5%;
   cursor: pointer;
+  height: 3em;
 `
 export default Header

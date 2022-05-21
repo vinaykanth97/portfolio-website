@@ -1,42 +1,27 @@
-export const fadeIn = {
+export const bannerScaleEffect = {
   hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-  },
-}
-export const bannerFadeIn = {
-  hidden: {
-    x: 0,
-  },
-  visible: {
-    x: 1000,
-    transition: {
-      ease: "easeInOut",
-      duration: 1,
-    },
-  },
-}
-export const scaleEffect = {
-  hidden: {
-    scale: 0.8,
+    scale: 0.5,
   },
   visible: {
     scale: 1,
-    delay: 6,
+
     transition: {
-      ease: "easeInOut",
-      duration: 1,
+      ease: "circInOut",
+      duration: 1.5,
     },
   },
 }
 
-export const headerShow = {
+export const RevealEffect = {
   hidden: {
-    y: "-100%",
+    x: "0%",
   },
   visible: {
-    y: "0",
+    x: "100%",
+    delay: 7,
+    transition: {
+      ease: "circInOut",
+      duration: 1.5,
+    },
   },
 }

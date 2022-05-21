@@ -1,10 +1,17 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { Wrapper, PrimaryBtn, OverlayEffect } from "../styles/baseStyles"
+import {
+  Wrapper,
+  PrimaryBtn,
+  OverlayEffect,
+  ContentTop,
+} from "../styles/baseStyles"
 import carot from "../images/chevron-down.png"
 import styled from "styled-components"
-import { bannerFadeIn, scaleEffect, fadeIn } from "./allAnimations"
+import { bannerScaleEffect, RevealEffect } from "./allAnimations"
 import { motion } from "framer-motion"
+import Lottie from "lottie-react"
+import codingPerson from "../images/example-anime.json"
 const Banner = () => {
   const bannerData = useStaticQuery(graphql`
     query BannerQuery {
@@ -40,44 +47,51 @@ const Banner = () => {
     <TopBanner>
       <motion.div
         className="banner-img"
-        variants={fadeIn}
+        variants={bannerScaleEffect}
         initial="hidden"
         animate="visible"
       >
-        <motion.img
-          src={developerImage.sourceUrl}
-          alt=""
-          variants={scaleEffect}
-        />
-        <OverlayEffect variants={bannerFadeIn}></OverlayEffect>
+        <Lottie animationData={codingPerson} loop={true} />
       </motion.div>
       <Wrapper>
-        <div className="content">
-          <p className="dialogue">Hello, I am</p>
+        <motion.div className="content">
+          <ContentTop >
+            <p className="dialogue">Hello, I am</p>
+            <OverlayEffect variants={RevealEffect} initial="hidden" animate="visible"></OverlayEffect>
+          </ContentTop>
           <div className="main-content">
-            <h1>{personName}</h1>
-            <p>{personDescription}</p>
+            <ContentTop>
+              <h1>{personName}</h1>
+              <OverlayEffect variants={RevealEffect} initial="hidden" animate="visible"></OverlayEffect>
+            </ContentTop>
+            <ContentTop>
+              <p>{personDescription}</p>
+              <OverlayEffect variants={RevealEffect} initial="hidden" animate="visible"></OverlayEffect>
+            </ContentTop>
           </div>
-          <PrimaryBtn
-            href={personResume.localFile.publicURL}
-            title={personResume.title}
-            download
-          >
-            Download CV
-          </PrimaryBtn>
-        </div>
+          <ContentTop>
+            <PrimaryBtn
+              href={personResume.localFile.publicURL}
+              title={personResume.title}
+              download
+            >
+              Download CV
+            </PrimaryBtn>
+            <OverlayEffect variants={RevealEffect} initial="hidden" animate="visible"></OverlayEffect>
+          </ContentTop>
+        </motion.div>
       </Wrapper>
     </TopBanner>
   )
 }
-const TopBanner = styled.div`
+const TopBanner = styled(motion.div)`
   height: 100vh;
   position: relative;
   overflow: hidden;
   .banner-img {
     position: absolute;
     right: 0;
-    max-width: 70%;
+    max-width: 47%;
     img {
       height: 100vh;
       width: 100%;
@@ -93,6 +107,7 @@ const TopBanner = styled.div`
       background-color: #ff4900;
       display: inline-block;
       position: relative;
+      margin: 0 0 0.5em;
       &::after {
         content: "";
         position: absolute;
