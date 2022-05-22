@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react"
+import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import {
   Wrapper,
@@ -44,10 +44,9 @@ const Banner = () => {
     }
   `)
 
-  let { personName, personDescription, developerImage, personResume } =
+  let { personName, personDescription, personResume } =
     bannerData.allWpPage.edges[0].node.bannerContents
   const downSection = useContext(ElementContext)
-  const [scrollDown, setScrollDown] = useState(false)
   const ScrollDownHandler = () => {
     let aboutTop = downSection.about.reference.current.offsetTop
     gsap.to(window, {
@@ -185,14 +184,15 @@ const TopBanner = styled(motion.div)`
       position: absolute;
       right: 0;
       max-width: 55%;
-      top:40%;
-      transform:translateY(-50%) !important;
+      top: 40%;
+      transform: translateY(-50%) !important;
     }
   }
   .content {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 22;
     .dialogue {
       padding: 0.5em 1em;
       background-image: linear-gradient(
