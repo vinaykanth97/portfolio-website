@@ -59,14 +59,6 @@ const Banner = () => {
 
   return (
     <TopBanner>
-      <motion.div
-        className="banner-img"
-        variants={bannerScaleEffect}
-        initial="hidden"
-        animate="visible"
-      >
-        <Lottie animationData={codingPerson} loop={true} />
-      </motion.div>
       <Wrapper>
         <motion.div className="content">
           <ContentTop>
@@ -110,6 +102,14 @@ const Banner = () => {
             ></OverlayEffect>
           </ContentTop>
         </motion.div>
+        <motion.div
+          className="banner-img"
+          variants={bannerScaleEffect}
+          initial="hidden"
+          animate="visible"
+        >
+          <Lottie animationData={codingPerson} loop={true} />
+        </motion.div>
       </Wrapper>
       <motion.div
         id="scroll-down-animation"
@@ -148,7 +148,14 @@ const TopBanner = styled(motion.div)`
 
   .move {
     position: absolute;
-       background-image: linear-gradient( to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc );
+    background-image: linear-gradient(
+      to left bottom,
+      #6f1e97,
+      #6431a6,
+      #5440b4,
+      #3d4dc1,
+      #0e59cc
+    );
     height: 10px;
     width: 10px;
     border-radius: 50%;
@@ -171,14 +178,15 @@ const TopBanner = styled(motion.div)`
     }
   }
   .banner-img {
-    position: absolute;
-    right: 0;
-    max-width: 55%;
-    bottom: 5%;
-    img {
-      height: 100vh;
-      width: 100%;
-      object-fit: cover;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    svg {
+      position: absolute;
+      right: 0;
+      max-width: 55%;
+      top:40%;
+      transform:translateY(-50%) !important;
     }
   }
   .content {
