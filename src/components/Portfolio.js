@@ -103,7 +103,7 @@ const PortfolioSec = styled.div`
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: #ff4900;
+      background-image: linear-gradient(to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
       padding: 1em;
       text-align: center;
       display: flex;

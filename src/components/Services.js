@@ -36,7 +36,12 @@ const Services = () => {
   let { services } = useContext(elementContext)
   console.log("effect services")
   return (
-    <ServicesSec className="common-sec" id="services" ref={services.reference} data-placement="1">
+    <ServicesSec
+      className="common-sec"
+      id="services"
+      ref={services.reference}
+      data-placement="1"
+    >
       <Wrapper>
         <Topcontents>
           <h2>{servicesTitle}</h2>
@@ -95,7 +100,14 @@ const ServicesItem = styled.div`
     }
   }
   &:hover {
-    background: #ff4900;
+    background-image: linear-gradient(
+      to left bottom,
+      #6f1e97,
+      #6431a6,
+      #5440b4,
+      #3d4dc1,
+      #0e59cc
+    );
     border-radius: 0.3em;
     figure {
       background-color: #fff;

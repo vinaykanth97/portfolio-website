@@ -102,7 +102,7 @@ const TestimonialsSec = styled.div`
       background-color: #8c8ca5;
     }
     .swiper-pagination-bullet-active {
-      background-color: #ff4900;
+      background-image: linear-gradient(to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
     }
   }
   .review-content {
@@ -125,7 +125,7 @@ const TestimonialsSec = styled.div`
       }
     }
     h6 {
-      color: #ff4900;
+      color: #0E59CC;
     }
     p {
       font-size: 0.9em;

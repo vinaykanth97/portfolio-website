@@ -80,7 +80,7 @@ const ShowCaseSec = styled.div`
       border-radius: 0.3em;
       transition: 0.3s all ease;
       &:hover {
-        background-color: #ff4900;
+        background-image: linear-gradient(to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
         border: transparent;
       }
     }
