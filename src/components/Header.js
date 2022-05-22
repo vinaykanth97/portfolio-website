@@ -142,7 +142,6 @@ const Headerst = styled(motion.header)`
   width: 100%;
   background: #181818;
   padding: 1.3em 0;
-  /* opacity: 0; */
   figure {
     img {
       width: 6em;
@@ -183,7 +182,9 @@ const Headerst = styled(motion.header)`
         content: "";
         position: absolute;
         width: 0;
-        border-bottom: 0.2em solid #ff4900;
+        /* border-bottom: 0.2em solid #ff4900; */
+        height:0.2em;
+        background-image: linear-gradient(to left bottom, #6f1e97, #6431a6, #5440b4, #3d4dc1, #0e59cc);
         bottom: 0;
         right: 0;
         transition: 0.6s all ease-out;

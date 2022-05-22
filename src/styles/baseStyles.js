@@ -22,7 +22,7 @@ export const PrimaryBtn = styled.a`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #ff4900;
+    background-image: linear-gradient(to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
     clip-path: circle(0% at 50% 50%);
     transition: 0.5s all ease-in;
     z-index:-1;
@@ -41,6 +41,7 @@ export const OverlayEffect = styled(motion.div)`
   background-color: #080606;
   width: 100%;
   height: 100%;
+  z-index: 22;
 `
 export const Topcontents = styled.div`
   text-align: center;

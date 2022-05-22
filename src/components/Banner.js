@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import {
   Wrapper,
@@ -8,11 +8,15 @@ import {
 } from "../styles/baseStyles"
 import carot from "../images/chevron-down.png"
 import styled from "styled-components"
-import { bannerScaleEffect, RevealEffect } from "./allAnimations"
+import { bannerScaleEffect, RevealEffect, fadeEffect } from "./allAnimations"
 import { motion } from "framer-motion"
 import Lottie from "lottie-react"
-import codingPerson from "../images/example-anime.json"
+import codingPerson from "../images/the-coder.json"
+import ElementContext from "./ElementContext"
+import gsap from "gsap/dist/gsap"
+import ScrollToPlugin from "gsap/ScrollToPlugin"
 const Banner = () => {
+  gsap.registerPlugin(ScrollToPlugin)
   const bannerData = useStaticQuery(graphql`
     query BannerQuery {
       allWpPage {
@@ -42,6 +46,16 @@ const Banner = () => {
 
   let { personName, personDescription, developerImage, personResume } =
     bannerData.allWpPage.edges[0].node.bannerContents
+  const downSection = useContext(ElementContext)
+  const [scrollDown, setScrollDown] = useState(false)
+  const ScrollDownHandler = () => {
+    let aboutTop = downSection.about.reference.current.offsetTop
+    gsap.to(window, {
+      duration: 1.2,
+      scrollTo: aboutTop,
+      ease: "circ.inOut",
+    })
+  }
 
   return (
     <TopBanner>
@@ -55,18 +69,30 @@ const Banner = () => {
       </motion.div>
       <Wrapper>
         <motion.div className="content">
-          <ContentTop >
+          <ContentTop>
             <p className="dialogue">Hello, I am</p>
-            <OverlayEffect variants={RevealEffect} initial="hidden" animate="visible"></OverlayEffect>
+            <OverlayEffect
+              variants={RevealEffect}
+              initial="hidden"
+              animate="visible"
+            ></OverlayEffect>
           </ContentTop>
           <div className="main-content">
             <ContentTop>
               <h1>{personName}</h1>
-              <OverlayEffect variants={RevealEffect} initial="hidden" animate="visible"></OverlayEffect>
+              <OverlayEffect
+                variants={RevealEffect}
+                initial="hidden"
+                animate="visible"
+              ></OverlayEffect>
             </ContentTop>
             <ContentTop>
               <p>{personDescription}</p>
-              <OverlayEffect variants={RevealEffect} initial="hidden" animate="visible"></OverlayEffect>
+              <OverlayEffect
+                variants={RevealEffect}
+                initial="hidden"
+                animate="visible"
+              ></OverlayEffect>
             </ContentTop>
           </div>
           <ContentTop>
@@ -77,10 +103,25 @@ const Banner = () => {
             >
               Download CV
             </PrimaryBtn>
-            <OverlayEffect variants={RevealEffect} initial="hidden" animate="visible"></OverlayEffect>
+            <OverlayEffect
+              variants={RevealEffect}
+              initial="hidden"
+              animate="visible"
+            ></OverlayEffect>
           </ContentTop>
         </motion.div>
       </Wrapper>
+      <motion.div
+        id="scroll-down-animation"
+        variants={fadeEffect}
+        initial="hidden"
+        animate="visible"
+        onClick={ScrollDownHandler}
+      >
+        <span class="mouse">
+          <span class="move"></span>
+        </span>
+      </motion.div>
     </TopBanner>
   )
 }
@@ -88,10 +129,52 @@ const TopBanner = styled(motion.div)`
   height: 100vh;
   position: relative;
   overflow: hidden;
+  #scroll-down-animation {
+    position: absolute;
+    bottom: 1%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+  }
+  .mouse {
+    margin: 0 auto;
+    display: block;
+    border-radius: 50px;
+    border: 2px solid #5440b4;
+    height: 50px;
+    width: 30px;
+    position: relative;
+  }
+
+  .move {
+    position: absolute;
+       background-image: linear-gradient( to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc );
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: move 2s linear infinite;
+  }
+  @keyframes move {
+    0% {
+      transform: translate(-50%, 10px);
+      opacity: 0;
+    }
+    50% {
+      transform: translate(-50%, 40px);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, 80px);
+      opacity: 0;
+    }
+  }
   .banner-img {
     position: absolute;
     right: 0;
-    max-width: 47%;
+    max-width: 55%;
+    bottom: 5%;
     img {
       height: 100vh;
       width: 100%;
@@ -104,7 +187,14 @@ const TopBanner = styled(motion.div)`
     transform: translateY(-50%);
     .dialogue {
       padding: 0.5em 1em;
-      background-color: #ff4900;
+      background-image: linear-gradient(
+        to left bottom,
+        #6f1e97,
+        #6431a6,
+        #5440b4,
+        #3d4dc1,
+        #0e59cc
+      );
       display: inline-block;
       position: relative;
       margin: 0 0 0.5em;
