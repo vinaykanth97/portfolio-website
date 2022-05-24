@@ -7,7 +7,7 @@ export const bannerScaleEffect = {
     scale: 1,
     opacity: 1,
     transition: {
-      ease: "circInOut",
+      ease: "easeInOut",
       duration: 1.5,
       delay: 2,
     },
@@ -17,12 +17,15 @@ export const bannerScaleEffect = {
 export const RevealEffect = {
   hidden: {
     x: "0%",
+    transition: {
+      ease: "easeInOut",
+      duration: 1.5,
+    },
   },
   visible: {
     x: "100%",
-
     transition: {
-      ease: "circInOut",
+      ease: "easeInOut",
       duration: 1.5,
     },
   },
