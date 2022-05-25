@@ -38,9 +38,42 @@ export const fadeEffect = {
   visible: {
     opacity: 1,
     transition: {
-      ease: "circInOut",
+      ease: "easeInOut",
       duration: 3,
       delay: 5,
     },
   },
+}
+
+
+export const ProgressBarEffect = {
+  hidden: {
+    width: '0'
+  },
+  visible: {
+    width: 200,
+    transition: {
+      ease: "easeInOut",
+      duration: 3,
+      delay: 2,
+    },
+  }
+}
+
+
+export const progressFadeEffect = {
+  hidden: {
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+    },
+  },
+  visible: i => ({
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      duration: 3,
+      delay: i * 0.5,
+    },
+  })
 }

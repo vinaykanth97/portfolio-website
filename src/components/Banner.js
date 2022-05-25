@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useRef,useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import {
   Wrapper,
@@ -15,6 +15,7 @@ import codingPerson from "../images/the-coder.json"
 import ElementContext from "./ElementContext"
 import gsap from "gsap/dist/gsap"
 import ScrollToPlugin from "gsap/ScrollToPlugin"
+import ItObserver from "../reusable-hooks/ItObserver"
 const Banner = () => {
   gsap.registerPlugin(ScrollToPlugin)
   const bannerData = useStaticQuery(graphql`
@@ -55,9 +56,14 @@ const Banner = () => {
       ease: "circ.inOut",
     })
   }
-
+  const observerCall = ItObserver()
+  const [useAnimate] = observerCall.scrollActions
+  const bannerRef = useRef(null)
+  useEffect(() => {
+    observerCall.main.observe(bannerRef.current)
+  }, [])
   return (
-    <TopBanner>
+    <TopBanner ref={bannerRef}>
       <Wrapper>
         <motion.div className="content">
           <ContentTop>
@@ -65,7 +71,7 @@ const Banner = () => {
             <OverlayEffect
               variants={RevealEffect}
               initial="hidden"
-              animate="visible"
+              animate={useAnimate ? "visible" : "hidden"}
             ></OverlayEffect>
           </ContentTop>
           <div className="main-content">
@@ -74,7 +80,7 @@ const Banner = () => {
               <OverlayEffect
                 variants={RevealEffect}
                 initial="hidden"
-                animate="visible"
+                animate={useAnimate ? "visible" : "hidden"}
               ></OverlayEffect>
             </ContentTop>
             <ContentTop>
@@ -82,7 +88,7 @@ const Banner = () => {
               <OverlayEffect
                 variants={RevealEffect}
                 initial="hidden"
-                animate="visible"
+                animate={useAnimate ? "visible" : "hidden"}
               ></OverlayEffect>
             </ContentTop>
           </div>
@@ -97,7 +103,7 @@ const Banner = () => {
             <OverlayEffect
               variants={RevealEffect}
               initial="hidden"
-              animate="visible"
+              animate={useAnimate ? "visible" : "hidden"}
             ></OverlayEffect>
           </ContentTop>
         </motion.div>
@@ -105,7 +111,7 @@ const Banner = () => {
           className="banner-img"
           variants={bannerScaleEffect}
           initial="hidden"
-          animate="visible"
+          animate={useAnimate ? "visible" : "hidden"}
         >
           <Lottie animationData={codingPerson} loop={true} />
         </motion.div>
@@ -114,7 +120,7 @@ const Banner = () => {
         id="scroll-down-animation"
         variants={fadeEffect}
         initial="hidden"
-        animate="visible"
+        animate={useAnimate ? "visible" : "hidden"}
         onClick={ScrollDownHandler}
       >
         <span class="mouse">
