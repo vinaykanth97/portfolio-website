@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { OverlayEffect, Wrapper, ContentTop } from "../styles/baseStyles"
 import styled from "styled-components"
 import elementContext from "./ElementContext"
-import { useInView } from 'react-intersection-observer';
-import { RevealEffect } from "./allAnimations"
+import { RevealEffect, ProgressBarEffect, progressFadeEffect } from "./allAnimations"
+import ItObserver from "../reusable-hooks/ItObserver"
+import { motion } from 'framer-motion'
 const About = () => {
   const aboutData = useStaticQuery(graphql`
     query AboutQuery {
@@ -40,27 +41,13 @@ const About = () => {
   console.log("effect About")
 
   const { about } = useContext(elementContext)
-  const [useAnimation, setAnimation] = useState(false)
-  const options = {
-    root: null,
-    rootMargin: "0px 0px -50% 0px",
-    threshold: 0.25,
-  }
-  const inObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setAnimation(true)
-      } else {
-        setAnimation(false)
-      }
-    })
-  }, options)
+  const observerCall = ItObserver()
+  const [useAnimate] = observerCall.scrollActions
 
   useEffect(() => {
-    inObserver.observe(about.reference.current)
-  }, [useAnimation])
+    observerCall.main.observe(about.reference.current)
+  }, [])
 
-  console.log(useAnimation)
   return (
     <AboutSection
       className="common-sec"
@@ -83,29 +70,42 @@ const About = () => {
                   Years of Experience
                 </p>
               </div>
-              <OverlayEffect variants={RevealEffect} initial="hidden" animate={useAnimation ? 'visible' : 'hidden'}></OverlayEffect>
+              <OverlayEffect variants={RevealEffect} initial="hidden" animate={useAnimate ? 'visible' : 'hidden'}></OverlayEffect>
             </ContentTop>
 
           </div>
           <div className="about-content">
-            <h2>{aboutTitle}</h2>
-            <p>{aboutDescription}</p>
-            {aboutSkillsets.map((aboutSkills, i) => {
-              let { technologyName, percentage } = aboutSkills.node.allSkillsets
+            <ContentTop>
+              <h2>{aboutTitle}</h2>
+              <OverlayEffect variants={RevealEffect} initial="hidden" animate={useAnimate ? 'visible' : 'hidden'}></OverlayEffect>
+            </ContentTop>
+            <ContentTop>
+              <p>{aboutDescription}</p>
+              <OverlayEffect variants={RevealEffect} initial="hidden" animate={useAnimate ? 'visible' : 'hidden'}></OverlayEffect>
+            </ContentTop>
+            <div className="skill-spacing">
+              {aboutSkillsets.map((aboutSkills, i) => {
+                let { technologyName, percentage } = aboutSkills.node.allSkillsets
+                
+                return (
 
-              return (
-                <Skillset key={i}>
-                  <p>
-                    {technologyName} {percentage}%
-                  </p>
-                  <ProgessBarMax>
-                    <ProgressBarvalue
-                      percentage={percentage}
-                    ></ProgressBarvalue>
-                  </ProgessBarMax>
-                </Skillset>
-              )
-            })}
+                  <Skillset key={i} variants={progressFadeEffect} initial="hidden" animate={useAnimate ? 'visible' : 'hidden'} custom={i}>
+                    <motion.p>
+                      {technologyName} {percentage}%
+                    </motion.p>
+                    <ProgessBarMax>
+                      <ProgressBarvalue
+                        custom={i}
+                        animate={useAnimate ? { width: `${percentage}%` } : { width: `0%` }}
+                        transition={useAnimate ? { duration: 1, delay: i * 1 } : ''}
+                      ></ProgressBarvalue>
+                    </ProgessBarMax>
+                  </Skillset>
+
+                )
+              })}
+            </div>
+
           </div>
         </div>
       </Wrapper>
@@ -150,18 +150,18 @@ const AboutSection = styled.div`
     h2 {
       margin: 0 0 0.5em;
     }
-    & > p {
-      margin-bottom: 1.5em;
+    .skill-spacing{
+      margin-top: 1.5em;
     }
   }
 `
 
-const Skillset = styled.div`
+const Skillset = styled(motion.div)`
   p {
     margin-bottom: 0.4em;
   }
 `
-const ProgessBarMax = styled.div`
+const ProgessBarMax = styled(motion.div)`
   background-color: #707070;
   width: 100%;
   display: block;
@@ -169,11 +169,11 @@ const ProgessBarMax = styled.div`
   position: relative;
   margin: 0 0 1.5em;
 `
-const ProgressBarvalue = styled.span`
+const ProgressBarvalue = styled(motion.span)`
   position: absolute;
   top: 0;
   height: 100%;
-  width: ${props => props.percentage}%;
+  width: 0%;
   background: linear-gradient( to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc );
 `
 export default About
