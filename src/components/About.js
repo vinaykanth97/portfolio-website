@@ -3,9 +3,10 @@ import { useStaticQuery, graphql } from "gatsby"
 import { OverlayEffect, Wrapper, ContentTop } from "../styles/baseStyles"
 import styled from "styled-components"
 import elementContext from "./ElementContext"
-import { RevealEffect, ProgressBarEffect, progressFadeEffect } from "./allAnimations"
+import { RevealEffect, progressFadeEffect } from "./allAnimations"
 import ItObserver from "../reusable-hooks/ItObserver"
 import { motion } from 'framer-motion'
+import CountUp from 'react-countup';
 const About = () => {
   const aboutData = useStaticQuery(graphql`
     query AboutQuery {
@@ -38,7 +39,6 @@ const About = () => {
   let { aboutImage, experienceYears, aboutTitle, aboutDescription } =
     aboutData.allWpPage.nodes[0].about
   let aboutSkillsets = aboutData.allWpSkillset.edges
-  console.log("effect About")
 
   const { about } = useContext(elementContext)
   const observerCall = ItObserver()
@@ -70,34 +70,38 @@ const About = () => {
                   Years of Experience
                 </p>
               </div>
-              <OverlayEffect variants={RevealEffect} initial="hidden" animate={useAnimate ? 'visible' : 'hidden'}></OverlayEffect>
+              <OverlayEffect variants={RevealEffect} initial="hidden" whileInView="visible" viewport={{ once: true }}></OverlayEffect>
             </ContentTop>
 
           </div>
           <div className="about-content">
             <ContentTop>
               <h2>{aboutTitle}</h2>
-              <OverlayEffect variants={RevealEffect} initial="hidden" animate={useAnimate ? 'visible' : 'hidden'}></OverlayEffect>
+              <OverlayEffect variants={RevealEffect} initial="hidden" whileInView="visible" viewport={{ once: true }}></OverlayEffect>
             </ContentTop>
             <ContentTop>
               <p>{aboutDescription}</p>
-              <OverlayEffect variants={RevealEffect} initial="hidden" animate={useAnimate ? 'visible' : 'hidden'}></OverlayEffect>
+              <OverlayEffect variants={RevealEffect} initial="hidden" whileInView="visible" viewport={{ once: true }}></OverlayEffect>
             </ContentTop>
             <div className="skill-spacing">
               {aboutSkillsets.map((aboutSkills, i) => {
                 let { technologyName, percentage } = aboutSkills.node.allSkillsets
-                
                 return (
 
-                  <Skillset key={i} variants={progressFadeEffect} initial="hidden" animate={useAnimate ? 'visible' : 'hidden'} custom={i}>
+                  <Skillset key={i} variants={progressFadeEffect} initial="hidden" whileInView="visible" custom={i} viewport={{ once: true }}>
                     <motion.p>
-                      {technologyName} {percentage}%
+
+                      {technologyName} {
+                        useAnimate &&
+                        <CountUp end={percentage} delay={i * 1} suffix="%" duration="1" />
+                      }
                     </motion.p>
                     <ProgessBarMax>
                       <ProgressBarvalue
                         custom={i}
-                        animate={useAnimate ? { width: `${percentage}%` } : { width: `0%` }}
-                        transition={useAnimate ? { duration: 1, delay: i * 1 } : ''}
+                        transition={{ duration: 1 }}
+                        whileInView={{ width: `${percentage}%` }}
+                        viewport={{ once: true }}
                       ></ProgressBarvalue>
                     </ProgessBarMax>
                   </Skillset>
@@ -121,7 +125,6 @@ const AboutSection = styled.div`
     img {
       filter: grayscale(100%);
       background-color: #000;
-      border-radius: 0.7em;
       width: 100%;
     }
     .years-exp {
@@ -131,7 +134,6 @@ const AboutSection = styled.div`
       background: linear-gradient( to left bottom,rgb(111 30 151 / 70%),rgb(100 49 166 / 70%),rgb(84 64 180 / 70%),rgb(61 77 193 / 70%),rgb(14 89 204 / 70%) );
       padding: 2em;
       text-align: center;
-      border-radius: 0 0 0.7em 0.7em;
       p {
         font-size: 1.575em;
         font-weight: bold;

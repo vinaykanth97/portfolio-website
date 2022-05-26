@@ -35,6 +35,6 @@ const Blog = () => {
   )
 }
 const BlogSec = styled.div`
-  padding: 5em 0;
+  padding: 0 0 10em 0;
 `
 export default Blog

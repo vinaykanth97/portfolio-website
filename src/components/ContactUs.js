@@ -99,8 +99,7 @@ function ContactUs() {
   )
 }
 const ContactUsSec = styled.div`
-  /* background: #060606; */
-  padding: 5em 0;
+  padding:0 0 10em 0;
   .personal-information {
     flex-basis: 40%;
     h2 {
@@ -145,7 +144,7 @@ const ContactUsSec = styled.div`
     }
     .form-input {
       border: 1px solid #333333;
-      background-color: #000000;
+      background-color: transparent;
       padding: 1em;
       flex: 1;
       width: 100%;

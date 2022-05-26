@@ -7,7 +7,7 @@ export const bannerScaleEffect = {
     scale: 1,
     opacity: 1,
     transition: {
-      ease: "easeInOut",
+      ease: "easeIn",
       duration: 1.5,
       delay: 2,
     },
@@ -18,14 +18,14 @@ export const RevealEffect = {
   hidden: {
     x: "0%",
     transition: {
-      ease: "easeInOut",
+      ease: "easeIn",
       duration: 1.5,
     },
   },
   visible: {
     x: "100%",
     transition: {
-      ease: "easeInOut",
+      ease: "easeIn",
       duration: 1.5,
     },
   },
@@ -38,9 +38,10 @@ export const fadeEffect = {
   visible: {
     opacity: 1,
     transition: {
-      ease: "easeInOut",
-      duration: 3,
-      delay: 5,
+      ease: "linear",
+      duration: 0.5,
+      staggerChildren: 0.5,
+      when: "beforeChildren"
     },
   },
 }
@@ -53,7 +54,7 @@ export const ProgressBarEffect = {
   visible: {
     width: 200,
     transition: {
-      ease: "easeInOut",
+      ease: "easeIn",
       duration: 3,
       delay: 2,
     },
@@ -71,9 +72,26 @@ export const progressFadeEffect = {
   visible: i => ({
     opacity: 1,
     transition: {
-      when: "beforeChildren",
-      duration: 3,
-      delay: i * 0.5,
+      duration: 1,
+      delay: i * 0.2,
     },
   })
 }
+
+export const RevealEffectStraight = {
+  hidden: {
+    y: "0%",
+    transition: {
+      ease: "easeIn",
+      duration: 1.5,
+    },
+  },
+  visible: {
+    y: "100%",
+    transition: {
+      ease: "easeIn",
+      duration: 1.5,
+    },
+  },
+}
+

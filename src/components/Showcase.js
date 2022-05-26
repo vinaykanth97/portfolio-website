@@ -3,6 +3,8 @@ import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import { Wrapper } from "../styles/baseStyles"
 import showcaseBg from "../images/showcase.jpg"
+import { motion } from "framer-motion"
+import { fadeEffect } from "./allAnimations"
 const ShowCase = () => {
   const showCaseDatas = useStaticQuery(graphql`
     query showCaseQuery {
@@ -22,28 +24,28 @@ const ShowCase = () => {
   `)
   const { awards, clients, projects, yearsExperience } =
     showCaseDatas.allWpPage.edges[0].node.showcaseItem
-    console.log("effect showcase")
+
   return (
     <ShowCaseSec>
       <Wrapper>
-        <div className="d-flex showcase-wrap">
-          <div className="showcases">
+        <motion.div className="d-flex showcase-wrap" variants={fadeEffect} initial="hidden" whileInView="visible"  viewport={{ once: true }}>
+          <motion.div className="showcases" variants={fadeEffect}>
             <h5>{clients}</h5>
             <p>Clients</p>
-          </div>
-          <div className="showcases">
+          </motion.div>
+          <motion.div className="showcases" variants={fadeEffect}>
             <h5>{projects}</h5>
             <p>Projects</p>
-          </div>
-          <div className="showcases">
+          </motion.div>
+          <motion.div className="showcases" variants={fadeEffect}>
             <h5>{awards}</h5>
             <p>Awards</p>
-          </div>
-          <div className="showcases">
+          </motion.div>
+          <motion.div className="showcases" variants={fadeEffect}>
             <h5>{yearsExperience}</h5>
             <p>Years Experience</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </Wrapper>
     </ShowCaseSec>
   )
@@ -77,11 +79,20 @@ const ShowCaseSec = styled.div`
       justify-content: center;
       background: #111111;
       z-index: 2;
-      border-radius: 0.3em;
       transition: 0.3s all ease;
       &:hover {
-        background-image: linear-gradient(to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
-        border: transparent;
+    background-image: linear-gradient(130deg,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
+    animation: gradient-hover 2s ease-in-out forwards;
+    background-size: 200% 200%;
+   
+@keyframes gradient-hover { 
+    from{
+      background-position:10% 0%
+    }
+    to{
+      background-position:91% 100%
+    }
+}
       }
     }
   }

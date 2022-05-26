@@ -92,13 +92,13 @@ const Testimonials = () => {
   )
 }
 const TestimonialsSec = styled.div`
-  padding: 5em 0;
+  padding:0 0 10em 0;
   .swiper {
     padding-bottom: 5.5em;
     .swiper-pagination-bullet {
       width: 2.5em;
       height: 0.5em;
-      border-radius: 0.3em;
+      border-radius: 0;
       background-color: #8c8ca5;
     }
     .swiper-pagination-bullet-active {
@@ -109,7 +109,6 @@ const TestimonialsSec = styled.div`
     text-align: center;
     margin-top: 8em;
     background-color: #111111;
-    border-radius: 0.3em;
     padding: 6em 6em 3em;
     position: relative;
 
@@ -126,6 +125,7 @@ const TestimonialsSec = styled.div`
     }
     h6 {
       color: #0E59CC;
+      
     }
     p {
       font-size: 0.9em;

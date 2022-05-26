@@ -1,4 +1,4 @@
-import React, { useContext, useRef,useEffect } from "react"
+import React, { useContext, useRef, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import {
   Wrapper,
@@ -71,7 +71,8 @@ const Banner = () => {
             <OverlayEffect
               variants={RevealEffect}
               initial="hidden"
-              animate={useAnimate ? "visible" : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true }}
             ></OverlayEffect>
           </ContentTop>
           <div className="main-content">
@@ -80,7 +81,8 @@ const Banner = () => {
               <OverlayEffect
                 variants={RevealEffect}
                 initial="hidden"
-                animate={useAnimate ? "visible" : "hidden"}
+                whileInView="visible"
+                viewport={{ once: true }}
               ></OverlayEffect>
             </ContentTop>
             <ContentTop>
@@ -88,7 +90,8 @@ const Banner = () => {
               <OverlayEffect
                 variants={RevealEffect}
                 initial="hidden"
-                animate={useAnimate ? "visible" : "hidden"}
+                whileInView="visible"
+                viewport={{ once: true }}
               ></OverlayEffect>
             </ContentTop>
           </div>
@@ -103,7 +106,8 @@ const Banner = () => {
             <OverlayEffect
               variants={RevealEffect}
               initial="hidden"
-              animate={useAnimate ? "visible" : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true }}
             ></OverlayEffect>
           </ContentTop>
         </motion.div>
@@ -111,16 +115,18 @@ const Banner = () => {
           className="banner-img"
           variants={bannerScaleEffect}
           initial="hidden"
-          animate={useAnimate ? "visible" : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true }}
         >
           <Lottie animationData={codingPerson} loop={true} />
         </motion.div>
       </Wrapper>
       <motion.div
         id="scroll-down-animation"
-        variants={fadeEffect}
-        initial="hidden"
-        animate={useAnimate ? "visible" : "hidden"}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 3.5, duration: 2 }}
         onClick={ScrollDownHandler}
       >
         <span class="mouse">

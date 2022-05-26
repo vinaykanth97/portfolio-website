@@ -7,7 +7,7 @@ const ItObserver = () => {
         threshold: 0,
     }
     let [useAnimation, setAnimation] = useState(false)
-    let sectionObserver = new IntersectionObserver((entries) => entries.forEach(entry => entry.isIntersecting ? setAnimation(true) : setAnimation(false)), options)
+    let sectionObserver = new IntersectionObserver((entries) => entries.forEach(entry => entry.isIntersecting ? setAnimation(true) : ''), options)
     return {
         scrollActions: [useAnimation],
         main: sectionObserver

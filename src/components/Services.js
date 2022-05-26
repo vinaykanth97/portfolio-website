@@ -1,8 +1,10 @@
 import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
-import { Wrapper, Topcontents } from "../styles/baseStyles"
+import { Wrapper, Topcontents, OverlayEffect, ContentTop } from "../styles/baseStyles"
 import elementContext from "./ElementContext"
+import { motion } from "framer-motion"
+import { RevealEffectStraight, progressFadeEffect } from "./allAnimations"
 
 const Services = () => {
   const servicesData = useStaticQuery(graphql`
@@ -34,7 +36,9 @@ const Services = () => {
 
   const servicesList = servicesData.allWpServices.edges
   let { services } = useContext(elementContext)
-  console.log("effect services")
+
+
+
   return (
     <ServicesSec
       className="common-sec"
@@ -44,14 +48,19 @@ const Services = () => {
     >
       <Wrapper>
         <Topcontents>
-          <h2>{servicesTitle}</h2>
-          <p>{serviceDescription}</p>
+          <ContentTop>
+            <h2>{servicesTitle}</h2>
+            <OverlayEffect variants={RevealEffectStraight} initial="hidden" whileInView="visible" viewport={{ once: true }} />
+          </ContentTop>
+          <ContentTop>
+            <p>{serviceDescription}</p>
+            <OverlayEffect variants={RevealEffectStraight} initial="hidden" whileInView="visible" viewport={{ once: true }} />
+          </ContentTop>
         </Topcontents>
         <div className="services-listings">
           {servicesList.map((serviceList, index) => {
-            console.log()
             return (
-              <ServicesItem key={index}>
+              <ServicesItem key={index} variants={progressFadeEffect} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={index}>
                 <figure
                   dangerouslySetInnerHTML={{
                     __html: serviceList.node.serviceType["servicetype"],
@@ -68,7 +77,7 @@ const Services = () => {
 }
 
 const ServicesSec = styled.div`
-  padding: 5em 0;
+  padding:0 0 10em 0;
   .services-listings {
     display: grid;
     grid-gap: 2em;
@@ -76,7 +85,7 @@ const ServicesSec = styled.div`
     margin: 3em 0 0;
   }
 `
-const ServicesItem = styled.div`
+const ServicesItem = styled(motion.div)`
   display: flex;
   padding: 1.2em 1.7em;
   background: #111111;
@@ -95,20 +104,24 @@ const ServicesItem = styled.div`
     align-items: center;
     justify-content: center;
     margin: 0 1em 0 0;
+    transition: 0.3s all ease;
     svg {
       max-width: 50%;
     }
   }
   &:hover {
-    background-image: linear-gradient(
-      to left bottom,
-      #6f1e97,
-      #6431a6,
-      #5440b4,
-      #3d4dc1,
-      #0e59cc
-    );
-    border-radius: 0.3em;
+    background-image: linear-gradient(130deg,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
+    animation: gradient-hover 2s ease-in-out forwards;
+    background-size: 200% 200%;
+   
+@keyframes gradient-hover { 
+    from{
+      background-position:10% 0%
+    }
+    to{
+      background-position:91% 100%
+    }
+}
     figure {
       background-color: #fff;
     }
