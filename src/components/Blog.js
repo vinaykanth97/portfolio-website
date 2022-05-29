@@ -1,10 +1,10 @@
 import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
-import { Wrapper, Topcontents } from "../styles/baseStyles"
+import { Wrapper, Topcontents, OverlayEffect, ContentTop } from "../styles/baseStyles"
 import BlogSlider from "./BlogSlider"
 import elementContext from "./ElementContext"
-
+import { RevealEffectStraight } from "./allAnimations"
 const Blog = () => {
   const blogData = useStaticQuery(graphql`
     query blogQuery {
@@ -23,18 +23,22 @@ const Blog = () => {
   console.log("effect Blog")
   let { blog } = useContext(elementContext)
   return (
-    <BlogSec className="common-sec" id="blog" ref={blog.reference} data-placement="4">
+    <div className="common-sec" id="blog" ref={blog.reference} data-placement="4">
       <Wrapper>
         <Topcontents>
-          <h2>{blogData.allWpPage.edges[0].node.blogtopcontents.title}</h2>
-          <p>{blogData.allWpPage.edges[0].node.blogtopcontents.description}</p>
+          <ContentTop>
+            <h2>{blogData.allWpPage.edges[0].node.blogtopcontents.title}</h2>
+            <OverlayEffect variants={RevealEffectStraight} initial="hidden" whileInView="visible" viewport={{ once: true }}></OverlayEffect>
+          </ContentTop>
+          <ContentTop>
+            <p>{blogData.allWpPage.edges[0].node.blogtopcontents.description}</p>
+            <OverlayEffect variants={RevealEffectStraight} initial="hidden" whileInView="visible" viewport={{ once: true }}></OverlayEffect>
+          </ContentTop>
         </Topcontents>
         <BlogSlider />
       </Wrapper>
-    </BlogSec>
+    </div>
   )
 }
-const BlogSec = styled.div`
-  padding: 0 0 10em 0;
-`
+
 export default Blog

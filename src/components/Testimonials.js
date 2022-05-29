@@ -3,12 +3,14 @@ import { useStaticQuery, graphql } from "gatsby"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination } from "swiper"
 import styled from "styled-components"
-import { Wrapper, Topcontents } from "../styles/baseStyles"
+import { Wrapper, Topcontents, OverlayEffect, ContentTop } from "../styles/baseStyles"
 import quoteStart from "../images/quote-start.png"
 import quoteEnd from "../images/quote-end.png"
 import "swiper/css"
 import "swiper/css/pagination"
 import elementContext from "./ElementContext"
+import { motion } from "framer-motion"
+import { RevealEffectStraight, progressFadeEffect } from "./allAnimations"
 const Testimonials = () => {
   const testimonialsData = useStaticQuery(graphql`
     query testimonialQuery {
@@ -53,8 +55,14 @@ const Testimonials = () => {
     >
       <Wrapper>
         <Topcontents>
-          <h2>{testimonialsTitle}</h2>
-          <p>{testimonialsDescription}</p>
+          <ContentTop>
+            <h2>{testimonialsTitle}</h2>
+            <OverlayEffect variants={RevealEffectStraight} initial="hidden" whileInView="visible" viewport={{ once: true }}></OverlayEffect>
+          </ContentTop>
+          <ContentTop>
+            <p>{testimonialsDescription}</p>
+            <OverlayEffect variants={RevealEffectStraight} initial="hidden" whileInView="visible" viewport={{ once: true }}></OverlayEffect>
+          </ContentTop>
         </Topcontents>
       </Wrapper>
       <Swiper
@@ -72,8 +80,8 @@ const Testimonials = () => {
           let { review, reviewerName, reviewerWorkplace } =
             testimonials.node.testimonials
           return (
-            <SwiperSlide key={index}>
-              <div className="review-content">
+            <SwiperSlide key={index} >
+              <motion.div className="review-content" variants={progressFadeEffect} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={index}>
                 <figure>
                   <img
                     src={testimonials.node.featuredImage.node.sourceUrl}
@@ -83,7 +91,7 @@ const Testimonials = () => {
                 <h6>{reviewerName}</h6>
                 <p>{reviewerWorkplace}</p>
                 <p className="review">{review}</p>
-              </div>
+              </motion.div>
             </SwiperSlide>
           )
         })}
@@ -92,7 +100,6 @@ const Testimonials = () => {
   )
 }
 const TestimonialsSec = styled.div`
-  padding:0 0 10em 0;
   .swiper {
     padding-bottom: 5.5em;
     .swiper-pagination-bullet {

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { graphql } from "gatsby"
 import { DiscussionEmbed } from "disqus-react"
 import GlobalStyle from "../styles/globalStyles"
@@ -8,6 +8,7 @@ import calendarIcon from "../images/calendar.png"
 import BlogSlider from "../components/BlogSlider"
 import BackHomeIcon from "../images/back-home.png"
 import { Link } from "gatsby"
+import { motion, AnimatePresence } from "framer-motion"
 export default function BlogPost({ data }) {
   let allmonths = [
     "January",
@@ -35,8 +36,9 @@ export default function BlogPost({ data }) {
       language: "en",
     },
   }
+
   return (
-    <BlogTemplate>
+    <BlogTemplate >
       <GlobalStyle />
       <div className="back-to-home">
         <Wrapper>
@@ -77,9 +79,8 @@ export default function BlogPost({ data }) {
                       <img src={calendarIcon} alt="" />
                     </figure>
                     <p>
-                      {`${postedDate}th ${
-                        allmonths[parseInt(postedMonth) - 1]
-                      }, ${postedYear}`}
+                      {`${postedDate}th ${allmonths[parseInt(postedMonth) - 1]
+                        }, ${postedYear}`}
                     </p>
                   </div>
                 </div>
@@ -101,6 +102,7 @@ export default function BlogPost({ data }) {
         })}
       </Wrapper>
     </BlogTemplate>
+
   )
 }
 export const blogDetailQuery = graphql`
@@ -134,7 +136,7 @@ export const blogDetailQuery = graphql`
     }
   }
 `
-const BlogTemplate = styled.div`
+const BlogTemplate = styled(motion.div)`
   .top-contents {
     padding: 5em 0 3em;
     h1 {

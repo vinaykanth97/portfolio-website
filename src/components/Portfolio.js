@@ -5,7 +5,7 @@ import { Wrapper, Topcontents, OverlayEffect, ContentTop } from "../styles/baseS
 import rightArrow from "../images/right-arrows.png"
 import elementContext from "./ElementContext"
 import { motion } from "framer-motion"
-import { RevealEffectStraight, progressFadeEffect } from "./allAnimations"
+import { RevealEffectStraight, progressFadeEffect, PortfolioHover } from "./allAnimations"
 
 const Portfolio = () => {
   const portfolioDatas = useStaticQuery(graphql`
@@ -72,21 +72,22 @@ const Portfolio = () => {
               portfolioUrl,
             } = portfolioDatas.node.portfolio.portfolioProjects.portfolio1
             return (
-              <motion.div className="portfolio-item" key={i}  variants={progressFadeEffect} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}>
+              <motion.div className="portfolio-item" key={i} variants={progressFadeEffect} initial={['hidden', 'unhover']} whileInView="visible" viewport={{ once: true }} custom={i} whileHover="hover" >
                 <figure>
                   <img src={portfolioImage.sourceUrl} alt="" />
                 </figure>
-                <a
+                <motion.a
                   className="portfolio-info"
                   href={portfolioUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  variants={PortfolioHover}
                 >
                   <h6>{portfolioMode}</h6>
                   <p>{portfolioStack}</p>
                   <p className="desc">{portfolioDescription}</p>
                   <img src={rightArrow} alt="" />
-                </a>
+                </motion.a>
               </motion.div>
             )
           })}
@@ -96,7 +97,6 @@ const Portfolio = () => {
   )
 }
 const PortfolioSec = styled.div`
-  padding: 10em 0;
   .portfolio {
     display: grid;
     grid-gap: 1em 3em;
@@ -105,6 +105,7 @@ const PortfolioSec = styled.div`
     overflow: hidden;
     &-item {
       position: relative;
+      overflow: hidden;
     }
     &-info {
       position: absolute;
@@ -118,13 +119,12 @@ const PortfolioSec = styled.div`
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      opacity: 0;
       transition: 0.6s all ease;
       &:hover {
     background-image: linear-gradient(130deg,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
     animation: gradient-hover 2s ease-in-out forwards;
     background-size: 200% 200%;
-    opacity: 1;
+    /* opacity: 1; */
 @keyframes gradient-hover { 
     from{
       background-position:10% 0%

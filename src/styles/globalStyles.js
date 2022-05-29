@@ -57,5 +57,8 @@ const GlobalStyle = createGlobalStyle`
   .align-center{
     align-items:center;
   }
+  .common-sec{
+    padding:10em 0;
+  }
 `
 export default GlobalStyle

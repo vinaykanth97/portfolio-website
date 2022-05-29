@@ -117,7 +117,6 @@ const About = () => {
   )
 }
 const AboutSection = styled.div`
-  padding: 10em 0;
   .about-img {
     flex-basis: 50%;
     margin: 0 2em 0 0;

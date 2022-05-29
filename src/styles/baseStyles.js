@@ -56,3 +56,41 @@ export const ContentTop = styled(motion.div)`
   position: relative;
   overflow: hidden;
 `
+export const Preloader = styled(motion.div)`
+
+  .bar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index:999;
+  }
+  .bar-1{
+    background-color: palegoldenrod;
+  }
+  .bar-2{
+    background-color: paleturquoise;
+  }
+  .bar-3{
+    background-color: palevioletred;
+  }
+`
+
+const Frame = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index:999;
+`
+export const Frame1 = styled(Frame)`
+      background-color: palegoldenrod;
+`
+export const Frame2 = styled(Frame)`
+      background-color: paleturquoise;
+`
+export const Frame3 = styled(Frame)`
+       background-color: palevioletred;
+`

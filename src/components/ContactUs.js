@@ -90,7 +90,7 @@ function ContactUs() {
                 rows="10"
                 placeholder="Message"
               ></textarea>
-              <PrimaryBtn>Submit</PrimaryBtn>
+              <PrimaryBtn className="submit-btn">Submit</PrimaryBtn>
             </form>
           </div>
         </div>
@@ -99,7 +99,6 @@ function ContactUs() {
   )
 }
 const ContactUsSec = styled.div`
-  padding:0 0 10em 0;
   .personal-information {
     flex-basis: 40%;
     h2 {
@@ -171,6 +170,9 @@ const ContactUsSec = styled.div`
       resize: none;
       margin-bottom: 2em;
       font-size: 1.125em;
+    }
+    .submit-btn{
+      cursor: default;
     }
   }
 `

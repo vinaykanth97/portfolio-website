@@ -83,15 +83,61 @@ export const RevealEffectStraight = {
     y: "0%",
     transition: {
       ease: "easeIn",
-      duration: 1.5,
+      duration: 1,
     },
   },
   visible: {
     y: "100%",
     transition: {
       ease: "easeIn",
-      duration: 1.5,
+      duration: 1,
     },
   },
 }
 
+export const PortfolioHover = {
+  unhover: {
+    x: "-100%",
+    skewY: "-10deg",
+    transition: {
+      ease: "linear",
+      duration: 0.1,
+    },
+  },
+  hover: {
+    x: "0%",
+    skewY: "0deg",
+
+    transition: {
+      ease: "linear",
+      duration: 0.3,
+    },
+  }
+}
+
+export const PreloaderAnim = {
+  hidden: {
+    x: "-130%",
+    skew: "45deg",
+  },
+  visible: {
+    x: "100%",
+    skew: "0deg",
+    transition: {
+      duration: 1,
+    }
+  }
+}
+
+export const PageAnim = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      when: 'beforeChildren',
+      staggerChildren: 0.2,
+    }
+  }
+}

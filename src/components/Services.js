@@ -77,7 +77,6 @@ const Services = () => {
 }
 
 const ServicesSec = styled.div`
-  padding:0 0 10em 0;
   .services-listings {
     display: grid;
     grid-gap: 2em;
