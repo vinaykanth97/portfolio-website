@@ -8,6 +8,9 @@ import "swiper/css/pagination"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation } from "swiper"
 import "swiper/css/navigation"
+import { motion } from "framer-motion"
+import { progressFadeEffect } from "./allAnimations"
+
 const BlogSlider = () => {
   const blogData = useStaticQuery(graphql`
     query blogSliderQuery {
@@ -64,7 +67,7 @@ const BlogSlider = () => {
 
           return (
             <SwiperSlide key={index}>
-              <div className="blog-item" key={index}>
+              <motion.div className="blog-item" key={index} variants={progressFadeEffect} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={index}>
                 <figure>
                   <img
                     src={blogDatas.node.featuredImage.node.sourceUrl}
@@ -73,14 +76,13 @@ const BlogSlider = () => {
                 </figure>
                 <div className="blog-overview">
                   <p>
-                    {`${postedDate}th ${
-                      allmonths[parseInt(postedMonth) - 1]
-                    }, ${postedYear}`}
+                    {`${postedDate}th ${allmonths[parseInt(postedMonth) - 1]
+                      }, ${postedYear}`}
                   </p>
                   <h6>{title}</h6>
                   <Link to={`/blog/${slug}`}>Learn More </Link>
                 </div>
-              </div>
+              </motion.div>
             </SwiperSlide>
           )
         })}
