@@ -59,6 +59,8 @@ const GlobalStyle = createGlobalStyle`
   }
   .common-sec{
     padding:10em 0;
+    position: relative;
+    overflow: hidden;
   }
 `
 export default GlobalStyle

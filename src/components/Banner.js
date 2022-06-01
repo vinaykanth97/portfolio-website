@@ -8,7 +8,7 @@ import {
 } from "../styles/baseStyles"
 import carot from "../images/chevron-down.png"
 import styled from "styled-components"
-import { bannerScaleEffect, RevealEffect, fadeEffect } from "./allAnimations"
+import { bannerScaleEffect, RevealEffect } from "./allAnimations"
 import { motion } from "framer-motion"
 import Lottie from "lottie-react"
 import codingPerson from "../images/the-coder.json"
@@ -16,6 +16,7 @@ import ElementContext from "./ElementContext"
 import gsap from "gsap/dist/gsap"
 import ScrollToPlugin from "gsap/ScrollToPlugin"
 import ItObserver from "../reusable-hooks/ItObserver"
+import LineAnime from "../components/LineAnime"
 const Banner = () => {
   gsap.registerPlugin(ScrollToPlugin)
   const bannerData = useStaticQuery(graphql`
@@ -57,13 +58,13 @@ const Banner = () => {
     })
   }
   const observerCall = ItObserver()
-  const [useAnimate] = observerCall.scrollActions
   const bannerRef = useRef(null)
   useEffect(() => {
     observerCall.main.observe(bannerRef.current)
   }, [])
   return (
     <TopBanner ref={bannerRef}>
+      <LineAnime />
       <Wrapper>
         <motion.div className="content">
           <ContentTop>

@@ -17,6 +17,7 @@ function ContactUs() {
       ref={contactUs.reference}
       data-placement="5"
     >
+    
       <Wrapper>
         <div className="d-flex">
           <div className="personal-information">
@@ -95,6 +96,7 @@ function ContactUs() {
           </div>
         </div>
       </Wrapper>
+      
     </ContactUsSec>
   )
 }

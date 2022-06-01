@@ -5,7 +5,7 @@ import { Wrapper, Topcontents, OverlayEffect, ContentTop } from "../styles/baseS
 import elementContext from "./ElementContext"
 import { motion } from "framer-motion"
 import { RevealEffectStraight, progressFadeEffect } from "./allAnimations"
-
+import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./AnimateSectionElement"
 const Services = () => {
   const servicesData = useStaticQuery(graphql`
     query serviceQuery {
@@ -46,6 +46,7 @@ const Services = () => {
       ref={services.reference}
       data-placement="1"
     >
+      <AnimateSectionElementTop />
       <Wrapper>
         <Topcontents>
           <ContentTop>
@@ -72,6 +73,7 @@ const Services = () => {
           })}
         </div>
       </Wrapper>
+      <AnimateSectionElementBottom />
     </ServicesSec>
   )
 }

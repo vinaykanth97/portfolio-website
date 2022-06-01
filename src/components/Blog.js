@@ -5,6 +5,7 @@ import { Wrapper, Topcontents, OverlayEffect, ContentTop } from "../styles/baseS
 import BlogSlider from "./BlogSlider"
 import elementContext from "./ElementContext"
 import { RevealEffectStraight } from "./allAnimations"
+import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./AnimateSectionElement"
 const Blog = () => {
   const blogData = useStaticQuery(graphql`
     query blogQuery {
@@ -24,6 +25,7 @@ const Blog = () => {
   let { blog } = useContext(elementContext)
   return (
     <div className="common-sec" id="blog" ref={blog.reference} data-placement="4">
+      <AnimateSectionElementTop />
       <Wrapper>
         <Topcontents>
           <ContentTop>
@@ -37,6 +39,7 @@ const Blog = () => {
         </Topcontents>
         <BlogSlider />
       </Wrapper>
+      <AnimateSectionElementBottom />
     </div>
   )
 }

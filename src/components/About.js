@@ -7,6 +7,7 @@ import { RevealEffect, progressFadeEffect } from "./allAnimations"
 import ItObserver from "../reusable-hooks/ItObserver"
 import { motion } from 'framer-motion'
 import CountUp from 'react-countup';
+import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./AnimateSectionElement"
 const About = () => {
   const aboutData = useStaticQuery(graphql`
     query AboutQuery {
@@ -55,6 +56,7 @@ const About = () => {
       ref={about.reference}
       data-placement="0"
     >
+      <AnimateSectionElementTop />
       <Wrapper>
         <div className="d-flex">
           <div className="about-img">
@@ -113,6 +115,7 @@ const About = () => {
           </div>
         </div>
       </Wrapper>
+      <AnimateSectionElementBottom />
     </AboutSection>
   )
 }

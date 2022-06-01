@@ -6,7 +6,7 @@ import rightArrow from "../images/right-arrows.png"
 import elementContext from "./ElementContext"
 import { motion } from "framer-motion"
 import { RevealEffectStraight, progressFadeEffect, PortfolioHover } from "./allAnimations"
-
+import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./AnimateSectionElement"
 const Portfolio = () => {
   const portfolioDatas = useStaticQuery(graphql`
     query portfolioQuery {
@@ -51,6 +51,7 @@ const Portfolio = () => {
       ref={portfolio.reference}
       data-placement="2"
     >
+      <AnimateSectionElementTop />
       <Wrapper>
         <Topcontents>
           <ContentTop>
@@ -93,6 +94,7 @@ const Portfolio = () => {
           })}
         </div>
       </Wrapper>
+      <AnimateSectionElementBottom />
     </PortfolioSec>
   )
 }

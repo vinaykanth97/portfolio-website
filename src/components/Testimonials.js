@@ -11,6 +11,7 @@ import "swiper/css/pagination"
 import elementContext from "./ElementContext"
 import { motion } from "framer-motion"
 import { RevealEffectStraight, progressFadeEffect } from "./allAnimations"
+import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./AnimateSectionElement"
 const Testimonials = () => {
   const testimonialsData = useStaticQuery(graphql`
     query testimonialQuery {
@@ -45,7 +46,6 @@ const Testimonials = () => {
   let { testimonialsDescription, testimonialsTitle } =
     testimonialsData.allWpPage.edges[0].node.testimonialUtils
   let { testimonials } = useContext(elementContext)
-  console.log("effect Testimonials")
   return (
     <TestimonialsSec
       className="common-sec"
@@ -53,6 +53,7 @@ const Testimonials = () => {
       ref={testimonials.reference}
       data-placement="3"
     >
+      <AnimateSectionElementTop />
       <Wrapper>
         <Topcontents>
           <ContentTop>
@@ -96,6 +97,7 @@ const Testimonials = () => {
           )
         })}
       </Swiper>
+      <AnimateSectionElementBottom />
     </TestimonialsSec>
   )
 }
