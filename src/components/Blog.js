@@ -1,6 +1,5 @@
 import React, { useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import styled from "styled-components"
 import { Wrapper, Topcontents, OverlayEffect, ContentTop } from "../styles/baseStyles"
 import BlogSlider from "./BlogSlider"
 import elementContext from "./ElementContext"
@@ -21,7 +20,6 @@ const Blog = () => {
       }
     }
   `)
-  console.log("effect Blog")
   let { blog } = useContext(elementContext)
   return (
     <div className="common-sec" id="blog" ref={blog.reference} data-placement="4">

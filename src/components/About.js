@@ -95,7 +95,7 @@ const About = () => {
 
                       {technologyName} {
                         useAnimate &&
-                        <CountUp end={percentage} delay={i * 1} suffix="%" duration="1" />
+                        <CountUp end={percentage} delay={i * 1} suffix="%" duration="1" className="background-text"/>
                       }
                     </motion.p>
                     <ProgessBarMax>

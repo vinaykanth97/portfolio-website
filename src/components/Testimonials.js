@@ -89,7 +89,7 @@ const Testimonials = () => {
                     alt=""
                   />
                 </figure>
-                <h6>{reviewerName}</h6>
+                <h6 className="background-text">{reviewerName}</h6>
                 <p>{reviewerWorkplace}</p>
                 <p className="review">{review}</p>
               </motion.div>

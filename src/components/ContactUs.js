@@ -6,10 +6,28 @@ import callIcon from "../images/phone.svg"
 import mailIcon from "../images/email.svg"
 import locationIcon from "../images/location.svg"
 import elementContext from "./ElementContext"
+import { graphql, useStaticQuery } from "gatsby"
 
 function ContactUs() {
   let { contactUs } = useContext(elementContext)
-  console.log("effect Contact us")
+  const contactUsData = useStaticQuery(graphql`
+  query contactQuery {
+    allWpPage {
+      edges {
+        node {
+          personalInformation {
+            address
+            callme
+            description
+            email
+            socialLinks
+          }
+        }
+      }
+    }
+  }
+  `)
+  let { address, callme, description, email, socialLinks } = contactUsData.allWpPage.edges[0].node.personalInformation
   return (
     <ContactUsSec
       className="common-sec"
@@ -17,14 +35,13 @@ function ContactUs() {
       ref={contactUs.reference}
       data-placement="5"
     >
-    
+
       <Wrapper>
         <div className="d-flex">
           <div className="personal-information">
             <h2>Contact Us</h2>
             <p>
-              Let's make something new, different and more meaningful or make
-              thing more visual or conceptual?
+              {description}
             </p>
             <div className="infos">
               <div className="d-flex mb-2">
@@ -33,7 +50,7 @@ function ContactUs() {
                 </figure>
                 <div className="content">
                   <h6>Call me</h6>
-                  <p>+123 456 7890</p>
+                  <a href={`tel:${callme}`}>+91 {callme}</a>
                 </div>
               </div>
               <div className="d-flex mb-2">
@@ -42,7 +59,7 @@ function ContactUs() {
                 </figure>
                 <div className="content">
                   <h6>Email</h6>
-                  <p>vinaykennedy@gmail.com</p>
+                  <a href={`mailto:${email}`}>{email}</a>
                 </div>
               </div>
               <div className="d-flex">
@@ -50,14 +67,14 @@ function ContactUs() {
                   <img src={locationIcon} alt="" />
                 </figure>
                 <div className="content">
-                  <h6>Address</h6>
-                  <p>27 Division St, New York, NY 10002, USA</p>
+                  <h6>Location</h6>
+                  <p>{address}</p>
                 </div>
               </div>
             </div>
             <div className="social-link">
               <p>Find Me on</p>
-              <a>
+              <a href={socialLinks}>
                 <img src={githubLogo} alt="" />
               </a>
             </div>
@@ -96,13 +113,14 @@ function ContactUs() {
           </div>
         </div>
       </Wrapper>
-      
+
     </ContactUsSec>
   )
 }
 const ContactUsSec = styled.div`
   .personal-information {
     flex-basis: 40%;
+    padding: 0 30px 0 0;
     h2 {
       margin: 0 0 0.5em 0;
     }
@@ -140,6 +158,7 @@ const ContactUsSec = styled.div`
   .contact-form {
     flex-basis: 60%;
     margin-left: 1em;
+    
     h2 {
       margin-bottom: 1em;
     }

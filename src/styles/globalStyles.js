@@ -62,5 +62,12 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     overflow: hidden;
   }
+  .background-text{
+    background: linear-gradient(to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
+    background-size: cover;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+  }
 `
 export default GlobalStyle

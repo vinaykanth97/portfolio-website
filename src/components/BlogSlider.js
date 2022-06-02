@@ -135,11 +135,12 @@ const BlogSliderSec = styled.div`
   .swiper-button-next:after,
   .swiper-rtl .swiper-button-prev:after {
     font-size: 0.9em;
-    color: #0E59CC;
+    color: #fff;
+    font-weight: bold;
   }
   .swiper-button-next,
   .swiper-button-prev {
-    background: #111;
+    background: linear-gradient(to left bottom,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
     width: 3em;
     height: 3em;
     border-radius: 50%;
