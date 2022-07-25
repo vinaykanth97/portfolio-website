@@ -2,11 +2,13 @@ const path = require(`path`)
 async function getPosts({ graphql, reporter }) {
   const graphqlResult = await graphql(`
     query {
-      allWpPost {
-        edges {
-          node {
-            databaseId
-            slug
+      wp {
+        posts {
+          edges {
+            node {
+              slug
+              databaseId
+            }
           }
         }
       }
@@ -19,7 +21,7 @@ async function getPosts({ graphql, reporter }) {
     )
     return
   }
-  return graphqlResult.data.allWpPost.edges
+  return graphqlResult.data.wp.posts
 }
 
 exports.createPages = async gatsbyUtilities => {

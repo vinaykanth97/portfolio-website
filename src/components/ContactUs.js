@@ -12,22 +12,23 @@ function ContactUs() {
   let { contactUs } = useContext(elementContext)
   const contactUsData = useStaticQuery(graphql`
   query contactQuery {
-    allWpPage {
-      edges {
-        node {
-          personalInformation {
-            address
-            callme
-            description
-            email
-            socialLinks
+    wp {
+      pages {
+        edges {
+          node {
+            personalInformation {
+              address
+              callme
+              description
+              email
+            }
           }
         }
       }
     }
   }
   `)
-  let { address, callme, description, email, socialLinks } = contactUsData.allWpPage.edges[0].node.personalInformation
+  let { address, callme, description, email, socialLinks } = contactUsData.wp.pages.edges[0].node.personalInformation
   return (
     <ContactUsSec
       className="common-sec"

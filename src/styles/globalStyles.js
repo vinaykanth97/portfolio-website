@@ -69,5 +69,11 @@ const GlobalStyle = createGlobalStyle`
     -webkit-text-fill-color: transparent;
     font-weight: bold;
   }
+  @media(max-width:991px) and (orientation:portrait){
+    .column-mob{
+    flex-direction: column;
+  }
+  }
+ 
 `
 export default GlobalStyle

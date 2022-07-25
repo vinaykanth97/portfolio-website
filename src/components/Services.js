@@ -9,32 +9,34 @@ import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./Animate
 const Services = () => {
   const servicesData = useStaticQuery(graphql`
     query serviceQuery {
-      allWpServices {
-        edges {
-          node {
-            serviceType {
-              servicetype
+      wp {
+        pages {
+          edges {
+            node {
+              ourServices {
+                serviceDescription
+                servicesTitle
+              }
             }
-            title
           }
         }
-      }
-      allWpPage {
-        edges {
-          node {
-            ourServices {
-              serviceDescription
-              servicesTitle
+        allServices {
+          edges {
+            node {
+              title
+              serviceType {
+                servicetype
+              }
             }
           }
         }
       }
     }
   `)
-  const serviceUtils = servicesData.allWpPage.edges[0].node.ourServices
-  let { servicesTitle, serviceDescription } = serviceUtils
 
-  const servicesList = servicesData.allWpServices.edges
+  const serviceUtils = servicesData.wp.pages.edges[0].node.ourServices
+  let { servicesTitle, serviceDescription } = serviceUtils
+  const servicesList = servicesData.wp.allServices.edges
   let { services } = useContext(elementContext)
 
 
@@ -75,6 +77,7 @@ const Services = () => {
       </Wrapper>
       <AnimateSectionElementBottom />
     </ServicesSec>
+
   )
 }
 
@@ -84,6 +87,13 @@ const ServicesSec = styled.div`
     grid-gap: 2em;
     grid-template-columns: repeat(auto-fill, calc(94% / 3));
     margin: 3em 0 0;
+    @media(max-width:1024px) and (orientation:landscape){
+      grid-template-columns: repeat(auto-fill,calc(96% / 2));
+    }
+    @media(max-width:991px) and (orientation:portrait){
+      grid-template-columns: repeat(auto-fill,calc(95% / 2));
+    }
+    
   }
 `
 const ServicesItem = styled(motion.div)`

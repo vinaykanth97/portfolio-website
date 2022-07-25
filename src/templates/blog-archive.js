@@ -27,93 +27,98 @@ export default function BlogPost({ data }) {
   let postedMonth
   let postedDate
   let postedYear
-  let title = data.allWpPost.edges[0].node.slug
+  let title = data.wp.edges[0].node.slug
   const disqusConfig = {
     shortname: "portfolio",
     config: {
-      identifier: data.allWpPost.edges[0].node.slug,
+      identifier: data.wp.edges[0].node.slug,
       title: title,
       language: "en",
     },
   }
 
   return (
-    <BlogTemplate >
-      <GlobalStyle />
-      <div className="back-to-home">
-        <Wrapper>
-          <Link to="/">
-            <img src={BackHomeIcon} alt="" />
-            <span>Back to Home</span>
-          </Link>
-        </Wrapper>
-      </div>
-      <Wrapper>
-        {data.allWpPost.edges.map((blogs, index) => {
-          let formattedDate = blogs.node.date.split("/")
-          postedDate = formattedDate[0]
-          postedMonth = formattedDate[1]
-          postedYear = formattedDate[2]
+    // <BlogTemplate >
+    //   <GlobalStyle />
+    //   <div className="back-to-home">
+    //     <Wrapper>
+    //       <Link to="/">
+    //         <img src={BackHomeIcon} alt="" />
+    //         <span>Back to Home</span>
+    //       </Link>
+    //     </Wrapper>
+    //   </div>
+    //   <Wrapper>
+    //     {data.allWpPost.edges.map((blogs, index) => {
+    //       let formattedDate = blogs.node.date.split("/")
+    //       postedDate = formattedDate[0]
+    //       postedMonth = formattedDate[1]
+    //       postedYear = formattedDate[2]
 
-          return (
-            <div key={index}>
-              <div className="top-contents">
-                <h1>{blogs.node.title}</h1>
-                <div
-                  dangerouslySetInnerHTML={{ __html: blogs.node.excerpt }}
-                ></div>
-              </div>
-              <figure className="blog-img">
-                <img src={blogs.node.featuredImage.node.sourceUrl} alt="" />
-              </figure>
-              <div className="blog-explanation">
-                <div className="d-flex blog-essential">
-                  <div className="d-flex author-detail align-center">
-                    <figure>
-                      <img src={blogs.node.author.node.avatar.url} alt="" />
-                    </figure>
-                    <p>{`${blogs.node.author.node.firstName} ${blogs.node.author.node.lastName}`}</p>
-                  </div>
-                  <div className="d-flex posted-on align-center">
-                    <figure>
-                      <img src={calendarIcon} alt="" />
-                    </figure>
-                    <p>
-                      {`${postedDate}th ${allmonths[parseInt(postedMonth) - 1]
-                        }, ${postedYear}`}
-                    </p>
-                  </div>
-                </div>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: blogs.node.blogutils.blogField,
-                  }}
-                  className="blog-para"
-                ></div>
-              </div>
+    //       return (
+    //         <div key={index}>
+    //           <div className="top-contents">
+    //             <h1>{blogs.node.title}</h1>
+    //             <div
+    //               dangerouslySetInnerHTML={{ __html: blogs.node.excerpt }}
+    //             ></div>
+    //           </div>
+    //           <figure className="blog-img">
+    //             <img src={blogs.node.featuredImage.node.sourceUrl} alt="" />
+    //           </figure>
+    //           <div className="blog-explanation">
+    //             <div className="d-flex blog-essential">
+    //               <div className="d-flex author-detail align-center">
+    //                 <figure>
+    //                   <img src={blogs.node.author.node.avatar.url} alt="" />
+    //                 </figure>
+    //                 <p>{`${blogs.node.author.node.firstName} ${blogs.node.author.node.lastName}`}</p>
+    //               </div>
+    //               <div className="d-flex posted-on align-center">
+    //                 <figure>
+    //                   <img src={calendarIcon} alt="" />
+    //                 </figure>
+    //                 <p>
+    //                   {`${postedDate}th ${allmonths[parseInt(postedMonth) - 1]
+    //                     }, ${postedYear}`}
+    //                 </p>
+    //               </div>
+    //             </div>
+    //             <div
+    //               dangerouslySetInnerHTML={{
+    //                 __html: blogs.node.blogutils.blogField,
+    //               }}
+    //               className="blog-para"
+    //             ></div>
+    //           </div>
 
-              <DiscussionEmbed {...disqusConfig} />
-              <div className="related-posts">
-                <h2>Related Posts</h2>
-                <BlogSlider />
-              </div>
-            </div>
-          )
-        })}
-      </Wrapper>
-    </BlogTemplate>
+    //           <DiscussionEmbed {...disqusConfig} />
+    //           <div className="related-posts">
+    //             <h2>Related Posts</h2>
+    //             <BlogSlider />
+    //           </div>
+    //         </div>
+    //       )
+    //     })}
+    //   </Wrapper>
+    // </BlogTemplate>
+    <></>
 
   )
 }
 export const blogDetailQuery = graphql`
-  query blogDataQuery($databaseId: Int) {
-    allWpPost(filter: { databaseId: { eq: $databaseId } }) {
-      edges {
-        node {
+  query blogDataQuery($databaseId: ID!) {
+    wp {
+      post(id:$databaseId, idType: DATABASE_ID)
+     
+      {
+
+     
+      
           title
           excerpt
           slug
-          date(formatString: "DD/MM/YYYY")
+          date
           blogutils {
             blogField
           }
@@ -131,10 +136,10 @@ export const blogDetailQuery = graphql`
               lastName
             }
           }
-        }
-      }
+      
     }
   }
+}
 `
 const BlogTemplate = styled(motion.div)`
   .top-contents {

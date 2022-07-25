@@ -10,30 +10,34 @@ import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./Animate
 const Portfolio = () => {
   const portfolioDatas = useStaticQuery(graphql`
     query portfolioQuery {
-      allWpPage {
-        edges {
-          node {
-            portfolioutils {
-              portfoliodescription
-              portfoliotitle
+      wp {
+        allPortfolio {
+          edges {
+            node {
+              portfolio {
+                portfolioProjects {
+                  portfolio1 {
+                    portfolioDescription
+                    portfolioMode
+                    portfolioStack
+                    portfolioUrl
+                    portfolioImage {
+                      sourceUrl
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
-      allWpPortfolio {
-        edges {
-          node {
-            portfolio {
-              portfolioProjects {
-                portfolio1 {
-                  portfolioDescription
-                  portfolioStack
-                  portfolioUrl
-                  portfolioMode
-                  portfolioImage {
-                    sourceUrl
-                  }
-                }
+      wp {
+        pages {
+          edges {
+            node {
+              portfolioutils {
+                portfoliodescription
+                portfoliotitle
               }
             }
           }
@@ -43,7 +47,8 @@ const Portfolio = () => {
   `)
   const { portfolio } = useContext(elementContext)
   const { portfoliodescription, portfoliotitle } =
-    portfolioDatas.allWpPage.edges[0].node.portfolioutils
+    portfolioDatas.wp.pages.edges[0].node.portfolioutils
+
   return (
     <PortfolioSec
       className="common-sec"
@@ -64,7 +69,7 @@ const Portfolio = () => {
           </ContentTop>
         </Topcontents>
         <div className="portfolio">
-          {portfolioDatas.allWpPortfolio.edges.map((portfolioDatas, i) => {
+          {portfolioDatas.wp.allPortfolio.edges.map((portfolioDatas, i) => {
             const {
               portfolioDescription,
               portfolioImage,
@@ -73,7 +78,7 @@ const Portfolio = () => {
               portfolioUrl,
             } = portfolioDatas.node.portfolio.portfolioProjects.portfolio1
             return (
-              <motion.div className="portfolio-item" key={i} variants={progressFadeEffect} initial={['hidden', 'unhover']} whileInView="visible" viewport={{ once: true }} custom={i} whileHover="hover" >
+              <motion.div className="portfolio-item" key={i} variants={progressFadeEffect} initial={['hidden', 'unhover']} whileInView="visible" viewport={{ once: true }} custom={i} whileHover="hover" whileTap="hover" >
                 <figure>
                   <img src={portfolioImage.sourceUrl} alt="" />
                 </figure>
@@ -96,6 +101,7 @@ const Portfolio = () => {
       </Wrapper>
       <AnimateSectionElementBottom />
     </PortfolioSec>
+
   )
 }
 const PortfolioSec = styled.div`
@@ -104,10 +110,21 @@ const PortfolioSec = styled.div`
     grid-gap: 1em 3em;
     grid-template-columns: repeat(auto-fill, calc(94% / 3));
     margin-top: 3em;
+    @media(max-width:1024px){
+      grid-template-columns: repeat(auto-fill,calc(96% / 2));
+      grid-gap: 2em;
+    }
+    @media(max-width:991px) and (orientation:portrait){
+      grid-template-columns: repeat(auto-fill,calc(95% / 2));
+      grid-gap: 2em;
+    }
     overflow: hidden;
     &-item {
       position: relative;
       overflow: hidden;
+      img{
+        /* width: 100%; */
+      }
     }
     &-info {
       position: absolute;
@@ -126,7 +143,6 @@ const PortfolioSec = styled.div`
     background-image: linear-gradient(130deg,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
     animation: gradient-hover 2s ease-in-out forwards;
     background-size: 200% 200%;
-    /* opacity: 1; */
 @keyframes gradient-hover { 
     from{
       background-position:10% 0%

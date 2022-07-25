@@ -21,22 +21,15 @@ const Banner = () => {
   gsap.registerPlugin(ScrollToPlugin)
   const bannerData = useStaticQuery(graphql`
     query BannerQuery {
-      allWpPage {
-        edges {
-          node {
-            bannerContents {
-              personDescription
-              personName
-              developerImage {
-                sourceUrl
-                title
-                altText
-              }
-              personResume {
-                title
-                publicUrl
-                localFile {
-                  publicURL
+      wp {
+        pages {
+          edges {
+            node {
+              bannerContents {
+                personDescription
+                personName
+                personResume {
+                  mediaItemUrl
                 }
               }
             }
@@ -45,9 +38,9 @@ const Banner = () => {
       }
     }
   `)
-
+    // console.log(bannerData.wp)
   let { personName, personDescription, personResume } =
-    bannerData.allWpPage.edges[0].node.bannerContents
+    bannerData.wp.pages.edges[0].node.bannerContents
   const downSection = useContext(ElementContext)
   const ScrollDownHandler = () => {
     let aboutTop = downSection.about.reference.current.offsetTop
@@ -66,19 +59,10 @@ const Banner = () => {
     <TopBanner ref={bannerRef}>
       <LineAnime />
       <Wrapper>
-        <motion.div className="content">
-          <ContentTop>
-            <p className="dialogue">Hello, I am</p>
-            <OverlayEffect
-              variants={RevealEffect}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            ></OverlayEffect>
-          </ContentTop>
-          <div className="main-content">
+        <div className="mob-flex">
+          <motion.div className="content">
             <ContentTop>
-              <h1>{personName}</h1>
+              <p className="dialogue">Hello, I am</p>
               <OverlayEffect
                 variants={RevealEffect}
                 initial="hidden"
@@ -86,8 +70,34 @@ const Banner = () => {
                 viewport={{ once: true }}
               ></OverlayEffect>
             </ContentTop>
+            <div className="main-content">
+              <ContentTop>
+                <h1>{personName}</h1>
+                <OverlayEffect
+                  variants={RevealEffect}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                ></OverlayEffect>
+              </ContentTop>
+              <ContentTop>
+                <p>{personDescription}</p>
+                <OverlayEffect
+                  variants={RevealEffect}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                ></OverlayEffect>
+              </ContentTop>
+            </div>
             <ContentTop>
-              <p>{personDescription}</p>
+              <PrimaryBtn
+                href={personResume.mediaItemUrl}
+                title={personResume.title}
+                target="_blank"
+              >
+                Download CV
+              </PrimaryBtn>
               <OverlayEffect
                 variants={RevealEffect}
                 initial="hidden"
@@ -95,32 +105,18 @@ const Banner = () => {
                 viewport={{ once: true }}
               ></OverlayEffect>
             </ContentTop>
-          </div>
-          <ContentTop>
-            <PrimaryBtn
-              href={personResume.localFile.publicURL}
-              title={personResume.title}
-              download
-            >
-              Download CV
-            </PrimaryBtn>
-            <OverlayEffect
-              variants={RevealEffect}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            ></OverlayEffect>
-          </ContentTop>
-        </motion.div>
-        <motion.div
-          className="banner-img"
-          variants={bannerScaleEffect}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <Lottie animationData={codingPerson} loop={true} />
-        </motion.div>
+          </motion.div>
+          <motion.div
+            className="banner-img"
+            variants={bannerScaleEffect}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <Lottie animationData={codingPerson} loop={true} />
+          </motion.div>
+        </div>
+
       </Wrapper>
       <motion.div
         id="scroll-down-animation"
@@ -135,18 +131,33 @@ const Banner = () => {
         </span>
       </motion.div>
     </TopBanner>
+ 
   )
 }
 const TopBanner = styled(motion.div)`
   height: 100vh;
   position: relative;
   overflow: hidden;
+  @media(max-width:991px)and (orientation:portrait){
+    height: auto;
+    .mob-flex{
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+    }
+  }
   #scroll-down-animation {
     position: absolute;
     bottom: 1%;
     left: 50%;
     transform: translate(-50%, 0);
     cursor: pointer;
+    @media(max-width:991px)and (orientation:portrait){
+      position: relative;
+      transform:none;
+      left: 0;
+      margin-top: 3em;
+    }
   }
   .mouse {
     margin: 0 auto;
@@ -156,6 +167,7 @@ const TopBanner = styled(motion.div)`
     height: 50px;
     width: 30px;
     position: relative;
+    overflow: hidden;
   }
 
   .move {
@@ -193,12 +205,22 @@ const TopBanner = styled(motion.div)`
     position: relative;
     width: 100%;
     height: 100vh;
+    @media(max-width:991px){
+      height: auto;
+      text-align: center;
+      margin-bottom: 3em;
+    }
     svg {
       position: absolute;
       right: 0;
       max-width: 55%;
       top: 40%;
       transform: translateY(-50%) !important;
+      @media(max-width:991px) and (orientation:portrait){
+   position: relative;
+   top:0;
+   transform: none !important;
+  }
     }
   }
   .content {
@@ -206,6 +228,12 @@ const TopBanner = styled(motion.div)`
     top: 50%;
     transform: translateY(-50%);
     z-index: 22;
+    @media(max-width:991px) and (orientation:portrait){
+   position: relative;
+   top:0;
+   transform: none;
+   text-align: center;
+  }
     .dialogue {
       padding: 0.5em 1em;
       background-image: linear-gradient(

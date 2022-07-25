@@ -8,12 +8,14 @@ import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./Animate
 const Blog = () => {
   const blogData = useStaticQuery(graphql`
     query blogQuery {
-      allWpPage {
-        edges {
-          node {
-            blogtopcontents {
-              description
-              title
+      wp {
+        pages {
+          edges {
+            node {
+              blogtopcontents {
+                description
+                title
+              }
             }
           }
         }
@@ -27,11 +29,11 @@ const Blog = () => {
       <Wrapper>
         <Topcontents>
           <ContentTop>
-            <h2>{blogData.allWpPage.edges[0].node.blogtopcontents.title}</h2>
+            <h2>{blogData.wp.pages.edges[0].node.blogtopcontents.title}</h2>
             <OverlayEffect variants={RevealEffectStraight} initial="hidden" whileInView="visible" viewport={{ once: true }}></OverlayEffect>
           </ContentTop>
           <ContentTop>
-            <p>{blogData.allWpPage.edges[0].node.blogtopcontents.description}</p>
+            <p>{blogData.wp.pages.edges[0].node.blogtopcontents.description}</p>
             <OverlayEffect variants={RevealEffectStraight} initial="hidden" whileInView="visible" viewport={{ once: true }}></OverlayEffect>
           </ContentTop>
         </Topcontents>

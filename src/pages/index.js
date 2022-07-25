@@ -1,5 +1,6 @@
 import * as React from "react"
 
+import "../styles/style.css"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Header from "../components/Header"
@@ -14,7 +15,6 @@ import ContactUs from "../components/ContactUs"
 import CopyRight from "../components/CopyRight"
 import GlobalStyle from "../styles/globalStyles"
 import { ElementProvider } from "../components/ElementContext"
-import "../styles/style.css"
 const IndexPage = () => {
   return (
     <>
@@ -37,5 +37,4 @@ const IndexPage = () => {
     </>
   )
 }
-
 export default IndexPage

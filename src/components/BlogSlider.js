@@ -14,16 +14,17 @@ import { progressFadeEffect } from "./allAnimations"
 const BlogSlider = () => {
   const blogData = useStaticQuery(graphql`
     query blogSliderQuery {
-      allWpPost {
-        edges {
-          node {
-            excerpt
-            title
-            slug
-            date(formatString: "DD/MM/YYYY")
-            featuredImage {
-              node {
-                sourceUrl
+      wp {
+        posts {
+          edges {
+            node {
+              title
+              slug
+              excerpt
+              featuredImage {
+                node {
+                  sourceUrl
+                }
               }
             }
           }
@@ -57,13 +58,8 @@ const BlogSlider = () => {
         slidesPerView={3}
         spaceBetween={30}
       >
-        {blogData.allWpPost.edges.map((blogDatas, index) => {
-          let { date, title, slug } = blogDatas.node
-
-          let formattedDate = date.split("/")
-          postedDate = formattedDate[0]
-          postedMonth = formattedDate[1]
-          postedYear = formattedDate[2]
+        {blogData.wp.posts.edges.map((blogDatas, index) => {
+          let { title, slug } = blogDatas.node
 
           return (
             <SwiperSlide key={index}>
@@ -75,10 +71,10 @@ const BlogSlider = () => {
                   />
                 </figure>
                 <div className="blog-overview">
-                  <p>
+                  {/* <p>
                     {`${postedDate}th ${allmonths[parseInt(postedMonth) - 1]
                       }, ${postedYear}`}
-                  </p>
+                  </p> */}
                   <h6>{title}</h6>
                   <Link to={`/blog/${slug}`}>Learn More </Link>
                 </div>

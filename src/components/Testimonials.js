@@ -15,28 +15,30 @@ import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./Animate
 const Testimonials = () => {
   const testimonialsData = useStaticQuery(graphql`
     query testimonialQuery {
-      allWpPage {
-        edges {
-          node {
-            testimonialUtils {
-              testimonialsDescription
-              testimonialsTitle
+      wp {
+        allTestimonial {
+          edges {
+            node {
+              testimonials {
+                review
+                reviewerName
+                reviewerWorkplace
+              }
+              featuredImage {
+                node {
+                  sourceUrl
+                }
+              }
             }
           }
         }
-      }
-      allWpTestimonial {
-        edges {
-          node {
-            featuredImage {
-              node {
-                sourceUrl
+        pages {
+          edges {
+            node {
+              testimonialUtils {
+                testimonialsDescription
+                testimonialsTitle
               }
-            }
-            testimonials {
-              review
-              reviewerName
-              reviewerWorkplace
             }
           }
         }
@@ -44,7 +46,7 @@ const Testimonials = () => {
     }
   `)
   let { testimonialsDescription, testimonialsTitle } =
-    testimonialsData.allWpPage.edges[0].node.testimonialUtils
+    testimonialsData.wp.pages.edges[0].node.testimonialUtils
   let { testimonials } = useContext(elementContext)
   return (
     <TestimonialsSec
@@ -77,7 +79,7 @@ const Testimonials = () => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        {testimonialsData.allWpTestimonial.edges.map((testimonials, index) => {
+        {testimonialsData.wp.allTestimonial.edges.map((testimonials, index) => {
           let { review, reviewerName, reviewerWorkplace } =
             testimonials.node.testimonials
           return (
@@ -120,7 +122,9 @@ const TestimonialsSec = styled.div`
     background-color: #111111;
     padding: 6em 6em 3em;
     position: relative;
-
+    @media(max-width:991px) and (orientation:portrait){
+      padding: 6em 3em 3em;
+    }
     figure {
       position: absolute;
       top: -4.3em;

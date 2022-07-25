@@ -8,14 +8,16 @@ import { fadeEffect } from "./allAnimations"
 const ShowCase = () => {
   const showCaseDatas = useStaticQuery(graphql`
     query showCaseQuery {
-      allWpPage {
-        edges {
-          node {
-            showcaseItem {
-              awards
-              clients
-              projects
-              yearsExperience
+      wp {
+        pages {
+          edges {
+            node {
+              showcaseItem {
+                awards
+                clients
+                projects
+                yearsExperience
+              }
             }
           }
         }
@@ -23,12 +25,12 @@ const ShowCase = () => {
     }
   `)
   const { awards, clients, projects, yearsExperience } =
-    showCaseDatas.allWpPage.edges[0].node.showcaseItem
+    showCaseDatas.wp.pages.edges[0].node.showcaseItem
 
   return (
     <ShowCaseSec>
       <Wrapper>
-        <motion.div className="d-flex showcase-wrap" variants={fadeEffect} initial="hidden" whileInView="visible"  viewport={{ once: true }}>
+        <motion.div className="d-flex showcase-wrap" variants={fadeEffect} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <motion.div className="showcases" variants={fadeEffect}>
             <h5>{clients}</h5>
             <p>Clients</p>
@@ -57,6 +59,7 @@ const ShowCaseSec = styled.div`
   background-size: cover;
   background-image: url(${showcaseBg});
   position: relative;
+ 
   &::after {
     content: "";
     position: absolute;
@@ -68,6 +71,9 @@ const ShowCaseSec = styled.div`
   }
   .showcase-wrap {
     justify-content: space-between;
+    @media (max-width:991px) and (orientation:portrait){
+    flex-wrap: wrap;
+  }
     .showcases {
       text-align: center;
       flex-basis: 18%;
@@ -80,6 +86,9 @@ const ShowCaseSec = styled.div`
       background: #111111;
       z-index: 2;
       transition: 0.3s all ease;
+      @media (max-width:991px) and (orientation:portrait){
+        flex-basis: 50%;
+      }
       &:hover {
     background-image: linear-gradient(130deg,#6f1e97,#6431a6,#5440b4,#3d4dc1,#0e59cc);
     animation: gradient-hover 2s ease-in-out forwards;

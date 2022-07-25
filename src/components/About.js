@@ -11,36 +11,41 @@ import { AnimateSectionElementTop, AnimateSectionElementBottom } from "./Animate
 const About = () => {
   const aboutData = useStaticQuery(graphql`
     query AboutQuery {
-      allWpPage {
-        nodes {
-          about {
-            aboutDescription
-            aboutTitle
-            experienceYears
-            fieldGroupName
-            aboutImage {
-              sourceUrl
+      wp {
+        pages {
+          edges {
+            node {
+              about {
+                aboutDescription
+                aboutTitle
+                experienceYears
+                aboutImage {
+                  sourceUrl
+                }
+              }
             }
           }
         }
       }
-      allWpSkillset {
-        edges {
-          node {
-            allSkillsets {
-              technologyName
-              percentage
+      wp {
+        allSkillset {
+          edges {
+            node {
+              allSkillsets {
+                percentage
+                technologyName
+              }
             }
           }
         }
       }
     }
   `)
-
+  console.log(aboutData.wp)
   let { aboutImage, experienceYears, aboutTitle, aboutDescription } =
-    aboutData.allWpPage.nodes[0].about
-  let aboutSkillsets = aboutData.allWpSkillset.edges
-
+    aboutData.wp.pages.edges[0].node.about
+  let aboutSkillsets = aboutData.wp.allSkillset.edges
+  console.log(aboutData.wp.pages.edges[0].node.about)
   const { about } = useContext(elementContext)
   const observerCall = ItObserver()
   const [useAnimate] = observerCall.scrollActions
@@ -58,7 +63,7 @@ const About = () => {
     >
       <AnimateSectionElementTop />
       <Wrapper>
-        <div className="d-flex">
+        <div className="d-flex column-mob">
           <div className="about-img">
             <ContentTop>
               <img src={aboutImage.sourceUrl} alt="" />
@@ -95,7 +100,7 @@ const About = () => {
 
                       {technologyName} {
                         useAnimate &&
-                        <CountUp end={percentage} delay={i * 1} suffix="%" duration="1" className="background-text"/>
+                        <CountUp end={percentage} delay={i * 1} suffix="%" duration="1" className="background-text" />
                       }
                     </motion.p>
                     <ProgessBarMax>
@@ -117,6 +122,7 @@ const About = () => {
       </Wrapper>
       <AnimateSectionElementBottom />
     </AboutSection>
+    // <></>
   )
 }
 const AboutSection = styled.div`
@@ -124,6 +130,9 @@ const AboutSection = styled.div`
     flex-basis: 50%;
     margin: 0 2em 0 0;
     position: relative;
+    @media(max-width:991px) and (orientation:portrait){
+      margin: 0 0 3em;
+    }
     img {
       filter: grayscale(100%);
       background-color: #000;
@@ -151,6 +160,9 @@ const AboutSection = styled.div`
   .about-content {
     flex-basis: 50%;
     padding: 0 0 0 2em;
+    @media(max-width:991px) and (orientation:portrait){
+     padding: 0;
+    }
     h2 {
       margin: 0 0 0.5em;
     }
